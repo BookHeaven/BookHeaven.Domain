@@ -7,7 +7,7 @@ namespace BookHeaven.Domain;
 public static class DependencyInjection
 {
     // Add migration
-    // dotnet ef migrations add [MigrationName] --project MyBookHeaven.Domain --startup-project MyBookHeaven.Server
+    // dotnet ef migrations add [MigrationName] --project BookHeaven.Domain --startup-project BookHeaven.Server
 
     /// <summary>
     /// Registers the database context and any other services needed for the domain layer.<br/>
@@ -20,7 +20,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<DatabaseContext>(options =>
         {
-            options.UseSqlite($"Data Source={Path.Combine(dbFolder, "MyBookHeaven.db")}");
+            options.UseSqlite($"Data Source={Path.Combine(dbFolder, "BookHeaven.db")}");
             #if DEBUG
             options.EnableSensitiveDataLogging();
             #endif

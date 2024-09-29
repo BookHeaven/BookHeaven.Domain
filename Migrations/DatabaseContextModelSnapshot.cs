@@ -17,7 +17,7 @@ namespace BookHeaven.Domain.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.Author", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.Author", b =>
                 {
                     b.Property<Guid>("AuthorId")
                         .ValueGeneratedOnAdd()
@@ -37,7 +37,7 @@ namespace BookHeaven.Domain.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.Book", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.Book", b =>
                 {
                     b.Property<Guid>("BookId")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace BookHeaven.Domain.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.BookProgress", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.BookProgress", b =>
                 {
                     b.Property<Guid>("BookProgressId")
                         .ValueGeneratedOnAdd()
@@ -142,7 +142,7 @@ namespace BookHeaven.Domain.Migrations
                     b.ToTable("BooksProgress");
                 });
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.Profile", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.Profile", b =>
                 {
                     b.Property<Guid>("ProfileId")
                         .ValueGeneratedOnAdd()
@@ -162,7 +162,7 @@ namespace BookHeaven.Domain.Migrations
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.ProfileSettings", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.ProfileSettings", b =>
                 {
                     b.Property<Guid>("ProfileSettingsId")
                         .ValueGeneratedOnAdd()
@@ -206,7 +206,7 @@ namespace BookHeaven.Domain.Migrations
                     b.ToTable("ProfilesSettings");
                 });
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.Series", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.Series", b =>
                 {
                     b.Property<Guid>("SeriesId")
                         .ValueGeneratedOnAdd()
@@ -220,13 +220,13 @@ namespace BookHeaven.Domain.Migrations
                     b.ToTable("Series");
                 });
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.Book", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.Book", b =>
                 {
-                    b.HasOne("MyBookHeaven.Domain.Entities.Author", "Author")
+                    b.HasOne("BookHeaven.Domain.Entities.Author", "Author")
                         .WithMany("Books")
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("MyBookHeaven.Domain.Entities.Series", "Series")
+                    b.HasOne("BookHeaven.Domain.Entities.Series", "Series")
                         .WithMany("Books")
                         .HasForeignKey("SeriesId");
 
@@ -235,15 +235,15 @@ namespace BookHeaven.Domain.Migrations
                     b.Navigation("Series");
                 });
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.BookProgress", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.BookProgress", b =>
                 {
-                    b.HasOne("MyBookHeaven.Domain.Entities.Book", "Book")
+                    b.HasOne("BookHeaven.Domain.Entities.Book", "Book")
                         .WithMany("Progresses")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyBookHeaven.Domain.Entities.Profile", "Profile")
+                    b.HasOne("BookHeaven.Domain.Entities.Profile", "Profile")
                         .WithMany("BooksProgress")
                         .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -254,35 +254,35 @@ namespace BookHeaven.Domain.Migrations
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.ProfileSettings", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.ProfileSettings", b =>
                 {
-                    b.HasOne("MyBookHeaven.Domain.Entities.Profile", "Profile")
+                    b.HasOne("BookHeaven.Domain.Entities.Profile", "Profile")
                         .WithOne("ProfileSettings")
-                        .HasForeignKey("MyBookHeaven.Domain.Entities.ProfileSettings", "ProfileId")
+                        .HasForeignKey("BookHeaven.Domain.Entities.ProfileSettings", "ProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.Author", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.Author", b =>
                 {
                     b.Navigation("Books");
                 });
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.Book", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.Book", b =>
                 {
                     b.Navigation("Progresses");
                 });
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.Profile", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.Profile", b =>
                 {
                     b.Navigation("BooksProgress");
 
                     b.Navigation("ProfileSettings");
                 });
 
-            modelBuilder.Entity("MyBookHeaven.Domain.Entities.Series", b =>
+            modelBuilder.Entity("BookHeaven.Domain.Entities.Series", b =>
                 {
                     b.Navigation("Books");
                 });
