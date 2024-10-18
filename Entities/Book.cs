@@ -35,7 +35,7 @@ public partial class Book : EntityExtensions<Book>
     public string BookUrl => "/books/" + BookId + ".epub";
 
     public string FormattedFileName =>
-        $"{Title}{(Series != null).Then($" - {Series?.Name} ({SeriesIndex?.ToString("0.##")})")}{(Author != null).Then($" - {Author?.Name}")}.epub";
+        $"{(Author != null).Then($"{Author?.Name} - ")}{(Series != null).Then($"{Series?.Name} ({SeriesIndex?.ToString("0.##")}) - ")}{Title}.epub";
     
     public string? GetBookPath(string booksPath, bool checkPath = false)
     {
