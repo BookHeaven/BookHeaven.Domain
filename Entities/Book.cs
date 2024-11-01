@@ -32,7 +32,7 @@ public partial class Book : EntityExtensions<Book>
     [InverseProperty(nameof(BookProgress.Book))]
     public virtual List<BookProgress> Progresses { get; set; } = [];
     
-    public string BookUrl => "/books/" + BookId + ".epub";
+    public string EpubUrl => "/books/" + BookId + ".epub";
 
     public string FormattedFileName =>
         $"{(Author != null).Then($"{Author?.Name} - ")}{(Series != null).Then($"{Series?.Name} ({SeriesIndex?.ToString("0.##")}) - ")}{Title}.epub";
