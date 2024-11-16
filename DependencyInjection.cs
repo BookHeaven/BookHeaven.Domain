@@ -8,6 +8,12 @@ public static class DependencyInjection
 {
     // Add migration
     // dotnet ef migrations add [MigrationName] --project BookHeaven.Domain --startup-project BookHeaven.Server
+    
+    public enum DatabaseInjectionType
+    {
+        Service,
+        Factory
+    }
 
     /// <summary>
     /// Registers the database context and any other services needed for the domain layer.<br/>
@@ -16,15 +22,30 @@ public static class DependencyInjection
     /// <param name="services"></param>
     /// <param name="dbFolder">The location of the sqlite database</param>
     /// <returns></returns>
-    public static IServiceCollection AddDomain(this IServiceCollection services, string dbFolder)
+    public static IServiceCollection AddDomain(this IServiceCollection services, string dbFolder, DatabaseInjectionType databaseInjectionType)
     {
-        services.AddDbContext<DatabaseContext>(options =>
+        switch (databaseInjectionType)
         {
-            options.UseSqlite($"Data Source={Path.Combine(dbFolder, "BookHeaven.db")}");
-            #if DEBUG
-            options.EnableSensitiveDataLogging();
-            #endif
-        });
+            case DatabaseInjectionType.Service:
+                services.AddDbContext<DatabaseContext>(options =>
+                {
+                    options.UseSqlite($"Data Source={Path.Combine(dbFolder, "BookHeaven.db")}");
+                    #if DEBUG
+                        options.EnableSensitiveDataLogging();
+                    #endif
+                });
+                services.AddTransient<IDatabaseService, DatabaseService<DatabaseContext>>();
+                break;
+            case DatabaseInjectionType.Factory:
+                services.AddDbContextFactory<DatabaseContext>(options =>
+                {
+                    options.UseSqlite($"Data Source={Path.Combine(dbFolder, "BookHeaven.db")}");
+#if DEBUG
+                    options.EnableSensitiveDataLogging();
+#endif
+                });
+                break;
+        }
         
         using (var scope = services.BuildServiceProvider().CreateScope())
         {
@@ -35,8 +56,6 @@ public static class DependencyInjection
                 context.Database.Migrate();
             }
         }
-        
-        services.AddTransient<IDatabaseService, DatabaseService<DatabaseContext>>();
         return services;
     } 
 }
