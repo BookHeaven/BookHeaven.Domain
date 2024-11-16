@@ -11,8 +11,8 @@ public partial class Profile
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid ProfileId { get; set; }
-    public string? Name { get; set; }
-    public bool IsSelected { get; set; }
+
+    public string Name { get; set; } = null!;
     [JsonIgnore]
     public ProfileSettings? ProfileSettings { get; set; }
     [JsonIgnore]
