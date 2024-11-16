@@ -9,4 +9,24 @@ public static class Helpers
 	{
 		return value ? result : default;
 	}
+	
+	public static string? GetBookPath(string booksPath, Guid bookId, bool checkPath = false)
+	{
+		var path = $"{booksPath}/{bookId}.epub";
+		if (checkPath && !File.Exists(path))
+		{
+			return null;
+		}
+		return path;
+	}
+	
+	public static string? GetCoverPath(string coversPath, Guid bookId, bool checkPath = false)
+	{
+		var path = $"{coversPath}/{bookId}.jpg";
+		if (checkPath && !File.Exists(path))
+		{
+			return null;
+		}
+		return path;
+	}
 }
