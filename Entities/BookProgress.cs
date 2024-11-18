@@ -28,6 +28,4 @@ public partial class BookProgress : EntityExtensions<BookProgress>
     public DateTimeOffset LastRead { get; set; }
     public TimeSpan ElapsedTime { get; set; } = TimeSpan.Zero;
 
-    public string ElapsedTimeFormatted => $"{(int)ElapsedTime.TotalHours} h {ElapsedTime.Minutes:00} m";
-
 }
