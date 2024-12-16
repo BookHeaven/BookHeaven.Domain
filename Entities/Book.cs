@@ -31,32 +31,4 @@ public partial class Book : EntityExtensions<Book>
     [JsonIgnore]
     [InverseProperty(nameof(BookProgress.Book))]
     public virtual List<BookProgress> Progresses { get; set; } = [];
-    
-    public string EpubUrl => "/books/" + BookId + ".epub";
-
-    public string FormattedFileName =>
-        $"{(Author != null).Then($"{Author?.Name} - ")}{(Series != null).Then($"{Series?.Name} ({SeriesIndex?.ToString("0.##")}) - ")}{Title}.epub";
-    
-    public string? GetBookPath(string booksPath, bool checkPath = false)
-    {
-        var path = $"{booksPath}/{BookId}.epub";
-        if (checkPath && !File.Exists(path))
-        {
-            return null;
-        }
-        return path;
-    }
-    
-    public string CoverUrl => "/covers/" + BookId + ".jpg";
-    
-    public string? GetCoverPath(string coversPath, bool checkPath = false)
-    {
-        var path = $"{coversPath}/{BookId}.jpg";
-        if (checkPath && !File.Exists(path))
-        {
-            return null;
-        }
-        return path;
-    }
-
 }
