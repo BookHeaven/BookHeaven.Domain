@@ -112,7 +112,6 @@ public class DatabaseService<TC>(TC context) : IDatabaseService
 		if (entity != null)
 		{
 			context.Set<T>().Remove(entity);
-			await context.SaveChangesAsync();
 		}
 	}
 }
