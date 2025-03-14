@@ -2,6 +2,7 @@
 
 public enum BookStatus
 {
+    All,
     New,
     Reading,
     Finished
