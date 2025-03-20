@@ -32,7 +32,8 @@
 
 		public T Value { get; }
 
-		public static Result<T> Success(T value) => new(true, Error.None, value);
-		public new static Result<T> Failure(Error error) => new(false, error, default!);
+		public static implicit operator Result<T>(T value) => new(true, Error.None, value);
+    
+		public static implicit operator Result<T>(Error error) => new(false, error, default!);
 	}
 }
