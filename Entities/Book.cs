@@ -27,6 +27,8 @@ public partial class Book : EntityExtensions<Book>
     public string? ASIN { get; set; }
     public string? UUID { get; set; }
     public string? Language { get; set; }
+    
+    public virtual List<Tag> Tags { get; set; } = [];
 
     [JsonIgnore]
     [InverseProperty(nameof(BookProgress.Book))]
