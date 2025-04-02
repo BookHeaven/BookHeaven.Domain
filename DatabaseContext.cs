@@ -15,6 +15,8 @@ public partial class DatabaseContext(DbContextOptions<DatabaseContext> options) 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
+        modelBuilder.Entity<Book>()
+            .HasMany(b => b.Tags)
+            .WithMany();
     }
 }

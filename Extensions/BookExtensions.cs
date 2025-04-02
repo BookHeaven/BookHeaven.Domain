@@ -41,5 +41,21 @@ public static class BookExtensions
 		return "data:image/jpeg;base64," + Convert.ToBase64String(File.ReadAllBytes(path));
 	}
 
+	public static void UpdateFrom(this Book book, Book updatedBook)
+	{
+		book.Title = updatedBook.Title;
+		book.AuthorId = updatedBook.AuthorId;
+		book.SeriesId = updatedBook.SeriesId;
+		book.SeriesIndex = updatedBook.SeriesIndex;
+		book.Publisher = updatedBook.Publisher;
+		book.PublishedDate = updatedBook.PublishedDate;
+		book.Description = updatedBook.Description;
+		book.ISBN10 = updatedBook.ISBN10;
+		book.ISBN13 = updatedBook.ISBN13;
+		book.ASIN = updatedBook.ASIN;
+		book.UUID = updatedBook.UUID;
+		book.Language = updatedBook.Language;
+	}
+
 	
 }
