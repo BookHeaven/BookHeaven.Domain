@@ -12,6 +12,7 @@ public partial class DatabaseContext(DbContextOptions<DatabaseContext> options) 
     public DbSet<BookProgress> BooksProgress { get; set; }
     public DbSet<Profile> Profiles { get; set; }
     public DbSet<ProfileSettings> ProfilesSettings { get; set; }
+    public DbSet<Font> Fonts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
