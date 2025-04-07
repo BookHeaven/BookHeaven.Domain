@@ -1,0 +1,21 @@
+﻿using BookHeaven.Domain.Abstractions.Messaging;
+using BookHeaven.Domain.Entities;
+using BookHeaven.Domain.Shared;
+using Microsoft.EntityFrameworkCore;
+
+namespace BookHeaven.Domain.Features.Seriess;
+
+public sealed record GetAllSeriesQuery(bool IncludeBooks = false) : IQuery<List<Series>>;
+
+internal class GetAllSeriesQueryHandler(IDbContextFactory<DatabaseContext> dbContextFactory)
+    : IQueryHandler<GetAllSeriesQuery, List<Series>>
+{
+    public async Task<Result<List<Series>>> Handle(GetAllSeriesQuery request, CancellationToken cancellationToken)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        
+        return request.IncludeBooks
+            ? await context.Series.Include(x => x.Books).ThenInclude(b => b.Author).ToListAsync(cancellationToken)
+            : await context.Series.ToListAsync(cancellationToken);
+    }
+}

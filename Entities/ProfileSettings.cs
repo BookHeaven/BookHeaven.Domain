@@ -23,4 +23,5 @@ public partial class ProfileSettings : ObservableObject
     [ObservableProperty] private double horizontalMargin = 3;
     [ObservableProperty] private double verticalMargin = 1;
     [ObservableProperty] private int selectedLayout = 0;
+    [ObservableProperty] private string selectedFont = string.Empty;
 }
