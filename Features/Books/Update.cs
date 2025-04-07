@@ -23,6 +23,15 @@ internal class UpdateBookCommandHandler(IDbContextFactory<DatabaseContext> dbCon
         }
         
         book.UpdateFrom(request.Book);
+        
+        if(request.Book.Author is not null && !context.Authors.Any(a => a.AuthorId == request.Book.Author.AuthorId))
+        {
+            book.Author = request.Book.Author;
+        }
+        if(request.Book.Series is not null && !context.Series.Any(s => s.SeriesId == request.Book.Series.SeriesId))
+        {
+            book.Series = request.Book.Series;
+        }
 
         try
         {
