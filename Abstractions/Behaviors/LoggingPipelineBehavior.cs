@@ -12,11 +12,12 @@ internal sealed class LoggingPipelineBehavior<TRequest, TResponse>(
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         Stopwatch stopwatch = new();
-        logger.LogInformation("Handling {string} ({date})",typeof(TRequest).Name, DateTime.Now.ToString("g"));
+        var name = typeof(TRequest).DeclaringType?.Name ?? typeof(TRequest).Name;
+        logger.LogInformation("Handling {string} ({date})",name, DateTime.Now.ToString("g"));
         stopwatch.Start();
         var response = await next(cancellationToken);
         stopwatch.Stop();
-        logger.LogInformation("Handled {string} in {long}ms", typeof(TRequest).Name, stopwatch.ElapsedMilliseconds);
+        logger.LogInformation("Handled {string} in {long}ms", name, stopwatch.ElapsedMilliseconds);
         stopwatch.Reset();
         
         return response;
