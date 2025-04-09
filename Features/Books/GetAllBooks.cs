@@ -40,26 +40,3 @@ public static class GetAllBooks
         }
     }
 }
-
-
-/*public sealed record GetAllBooksContainingQuery(string Filter) : IQuery<List<Book>>;
-
-internal class GetAllBooksContainingQueryHandler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<GetAllBooksContainingQuery, List<Book>>
-{
-    public async Task<Result<List<Book>>> Handle(GetAllBooksContainingQuery request, CancellationToken cancellationToken)
-    {
-        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
-
-        var books = await context.Books
-            .Include(b => b.Author)
-            .Include(b => b.Series)
-            .Include(b => b.Tags)
-            .Where(b => 
-                b.Title!.ToUpper().Contains(request.Filter) ||
-                b.Author!.Name!.ToUpper().Contains(request.Filter) ||
-                b.Series!.Name!.ToUpper().Contains(request.Filter) ||
-                b.Tags.Any(t => t.Name.ToUpper().Contains(request.Filter)))
-            .ToListAsync(cancellationToken);
-        return books.Count != 0 ? books : new Error("Error", $"No books found with filter {request.Filter}");
-    }
-}*/
