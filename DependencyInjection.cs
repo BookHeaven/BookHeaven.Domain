@@ -1,3 +1,4 @@
+using BookHeaven.Domain.Abstractions.Behaviors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -38,6 +39,7 @@ public static class DependencyInjection
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+            config.AddOpenBehavior(typeof(LoggingPipelineBehavior<,>));
         });
         
         return services;
