@@ -33,9 +33,10 @@ public static class GetAllBooks
             {
                 books = books.Include(b => b.Progresses.Where(bp => bp.ProfileId == request.ProfileId));
             }
-                
+            
+            var results = await books.AsSplitQuery().ToListAsync(cancellationToken);
 
-            return books.Any() ? await books.ToListAsync(cancellationToken: cancellationToken) : new Error("Error", "No books found");
+            return results.Count > 0 ? results : new Error("Error", "No books found");
         }
     }
 }
