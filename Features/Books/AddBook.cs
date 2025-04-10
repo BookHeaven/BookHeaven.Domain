@@ -19,11 +19,11 @@ public static class AddBook
             
             if(request.Book.Author is not null && context.Authors.Any(a => a.AuthorId == request.Book.Author.AuthorId))
             {
-                context.Entry(request.Book.Author).State = EntityState.Detached;
+                context.Entry(request.Book.Author).State = EntityState.Unchanged;
             }
             if(request.Book.Series is not null && context.Series.Any(s => s.SeriesId == request.Book.Series.SeriesId))
             {
-                context.Entry(request.Book.Series).State = EntityState.Detached;
+                context.Entry(request.Book.Series).State = EntityState.Unchanged;
             }
             
             try 
