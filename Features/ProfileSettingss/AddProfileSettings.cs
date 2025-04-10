@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookHeaven.Domain.Features.ProfileSettingss;
 
-public static class CreateProfileSettings
+public static class AddProfileSettings
 {
     public sealed record Command(ProfileSettings ProfileSettings) : ICommand;
 
