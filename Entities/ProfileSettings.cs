@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BookHeaven.Domain.Entities;
@@ -11,6 +12,7 @@ public partial class ProfileSettings : ObservableObject
     public Guid ProfileSettingsId { get; set; }
 
     public Guid ProfileId { get; set; }
+    [JsonIgnore]
     [ForeignKey(nameof(ProfileId))]
     public Profile Profile { get; set; } = null!;
 

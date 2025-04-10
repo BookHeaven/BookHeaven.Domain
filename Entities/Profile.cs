@@ -13,7 +13,6 @@ public partial class Profile
     public Guid ProfileId { get; set; }
 
     public string Name { get; set; } = null!;
-    [JsonIgnore]
     public ProfileSettings? ProfileSettings { get; set; }
     [JsonIgnore]
     public List<BookProgress> BooksProgress { get; set; } = [];

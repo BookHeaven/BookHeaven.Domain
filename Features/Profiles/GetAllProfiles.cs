@@ -8,7 +8,7 @@ namespace BookHeaven.Domain.Features.Profiles;
 
 public static class GetAllProfiles
 {
-    public sealed record Query : IQuery<List<Profile>>;
+    public sealed record Query(bool IncludeSettings = false) : IQuery<List<Profile>>;
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory)
         : IQueryHandler<Query, List<Profile>>
@@ -16,8 +16,14 @@ public static class GetAllProfiles
         public async Task<Result<List<Profile>>> Handle(Query request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+            
+            var query = context.Profiles.AsQueryable();
+            if (request.IncludeSettings)
+            {
+                query = query.Include(p => p.ProfileSettings);
+            }
 
-            return await context.Profiles.ToListAsync(cancellationToken);
+            return await query.ToListAsync(cancellationToken);
         }
     }
 }
