@@ -49,7 +49,7 @@ public static class CreateBook
             }
             catch (Exception e)
             {
-                return new Error("Error", e.Message);
+                return new Error(e.Message);
             }
 
             return book.BookId;

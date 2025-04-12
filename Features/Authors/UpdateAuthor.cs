@@ -23,7 +23,7 @@ public static class UpdateAuthor
             }
             catch (DbUpdateException)
             {
-                return new Error("Error", "An error occurred while updating the author");
+                return new Error("An error occurred while updating the author");
             }
         
             return request.Author;

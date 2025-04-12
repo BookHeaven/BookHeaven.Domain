@@ -23,14 +23,14 @@ public static class RemoveTagFromBook
 
             if (book == null)
             {
-                return new Error("BOOK_NOT_FOUND", "Book not found");
+                return new Error("Book not found");
             }
 
             var tag = book.Tags.FirstOrDefault(t => t.TagId == request.TagId);
 
             if (tag == null)
             {
-                return new Error("TAG_NOT_FOUND", "Tag not found");
+                return new Error("Tag not found");
             }
 
             book.Tags.Remove(tag);
@@ -42,7 +42,7 @@ public static class RemoveTagFromBook
             catch (Exception ex)
             {
                 logger.LogError(ex, "Error removing tag from book");
-                return new Error("TAG_REMOVE_ERROR", ex.Message);
+                return new Error(ex.Message);
             }
 
             return Result.Success();

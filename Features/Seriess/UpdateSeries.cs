@@ -22,7 +22,7 @@ public static class UpdateSeries {
             }
             catch (DbUpdateException)
             {
-                return new Error("Error", "An error occurred while updating the series");
+                return new Error("An error occurred while updating the series");
             }
 
             return request.Series;

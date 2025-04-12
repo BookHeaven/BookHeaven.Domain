@@ -23,7 +23,7 @@ public static class GetProfileSettings
             
             return profileSettings != null
                 ? profileSettings
-                : new Error("Error", "Profile settings not found");
+                : new Error("Profile settings not found");
         }
     }
 }

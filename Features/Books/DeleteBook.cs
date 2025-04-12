@@ -19,7 +19,7 @@ public static class DeleteBook
 
             if (book == null)
             {
-                return new Error("NOT_FOUND", "Book not found");
+                return new Error("Book not found");
             }
 
             context.Books.Remove(book);

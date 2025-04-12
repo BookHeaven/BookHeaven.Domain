@@ -23,7 +23,7 @@ public static class AddAuthor
             }
             catch (Exception e)
             {
-                return new Error("Error", e.Message);
+                return new Error(e.Message);
             }
             return Result.Success();
         }

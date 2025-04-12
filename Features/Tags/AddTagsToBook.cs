@@ -26,7 +26,7 @@ public static class AddTagsToBook
 
             if (book == null)
             {
-                return new Error("BOOK_NOT_FOUND","Book not found");
+                return new Error("Book not found");
             }
 
             List<Tag> tags = [];
@@ -51,7 +51,7 @@ public static class AddTagsToBook
             catch (Exception ex)
             {
                 logger.LogError(ex, "Error adding tags to book");
-                return new Error("TAG_CREATE_ERROR", ex.Message);
+                return new Error(ex.Message);
             }
 
             return tags;

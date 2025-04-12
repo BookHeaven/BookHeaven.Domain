@@ -22,7 +22,7 @@ public static class AddProfile
             }
             catch (Exception e)
             {
-                return new Error("Error", e.Message);
+                return new Error(e.Message);
             }
 
             return request.Profile;

@@ -21,7 +21,7 @@ public static class UpdateBook
         
             if (book == null)
             {
-                return new Error("NOT_FOUND", "Book not found");
+                return new Error("Book not found");
             }
         
             book.UpdateFrom(request.Book);
@@ -41,7 +41,7 @@ public static class UpdateBook
             }
             catch (DbUpdateException)
             {
-                return Result.Failure(new Error("Error", "An error occurred while updating the book"));
+                return Result.Failure(new Error("An error occurred while updating the book"));
             }
 
             return Result.Success();

@@ -28,7 +28,7 @@ public static class CreateAuthor
             }
             catch (Exception e)
             {
-                return new Error("Error", e.Message);
+                return new Error(e.Message);
             }
 
             return author;

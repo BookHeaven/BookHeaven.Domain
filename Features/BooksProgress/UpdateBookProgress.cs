@@ -24,7 +24,7 @@ public static class UpdateBookProgress
             }
             catch (DbUpdateException)
             {
-                return Result.Failure(new Error("Error", "An error occurred while updating the book progress"));
+                return Result.Failure(new Error("An error occurred while updating the book progress"));
             }
 
             return Result.Success();

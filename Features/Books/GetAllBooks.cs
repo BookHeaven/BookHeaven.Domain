@@ -36,7 +36,7 @@ public static class GetAllBooks
             
             var results = await books.AsSplitQuery().ToListAsync(cancellationToken);
 
-            return results.Count > 0 ? results : new Error("Error", "No books found");
+            return results.Count > 0 ? results : new Error("No books found");
         }
     }
 }

@@ -32,7 +32,7 @@ public static class AddBook
             }
             catch (Exception e)
             {
-                return new Error("Error", e.Message);
+                return new Error(e.Message);
             }
             return Result.Success();
         }

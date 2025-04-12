@@ -14,7 +14,7 @@ public static class GetSeries {
         {
             if(request.SeriesId == null && request.Name == null)
             {
-                return new Error("Error", "You must provide either an SeriesId or a Name");
+                return new Error("You must provide either an SeriesId or a Name");
             }
         
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
@@ -26,11 +26,11 @@ public static class GetSeries {
                         (request.Name != null && x.Name!.ToUpper() == request.Name.ToUpper()),
                     cancellationToken);
             
-                return series != null ? series : new Error("Error", "Series not found");
+                return series != null ? series : new Error("Series not found");
             }
             catch (Exception e)
             {
-                return new Error("Error", e.Message);
+                return new Error(e.Message);
             }
         }
     }

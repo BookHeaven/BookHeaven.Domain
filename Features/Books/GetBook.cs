@@ -15,7 +15,7 @@ public static class GetBook
         {
             if(request.BookId == null && request.Title == null)
             {
-                return new Error("Error", "You must provide either a BookId or a Title");
+                return new Error("You must provide either a BookId or a Title");
             }
         
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
@@ -27,7 +27,7 @@ public static class GetBook
                 .AsSplitQuery()
                 .FirstOrDefaultAsync(x => x.BookId == request.BookId || x.Title == request.Title, cancellationToken);
         
-            return book != null ? book : new Error("Error", "Book not found");
+            return book != null ? book : new Error("Book not found");
         }
     }
 }

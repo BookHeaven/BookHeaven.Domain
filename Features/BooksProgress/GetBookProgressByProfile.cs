@@ -17,7 +17,7 @@ public static class GetBookProgressByProfile
 
             var progress = await context.BooksProgress.FirstOrDefaultAsync(x => x.BookId == request.BookId && x.ProfileId == request.ProfileId, cancellationToken);
 
-            return progress != null ? progress : new Error("Error", "Progress not found");
+            return progress != null ? progress : new Error("Progress not found");
         }
     }
 }

@@ -35,7 +35,7 @@ public static class AddFont
             catch (Exception ex)
             {
                 logger.LogError(ex, "Error adding font");
-                return new Error("FONT_ADD_ERROR", ex.Message);
+                return new Error(ex.Message);
             }
 
             return font;

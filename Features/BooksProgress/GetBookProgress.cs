@@ -18,7 +18,7 @@ public static class GetBookProgress
 
             var progress = await context.BooksProgress.FirstOrDefaultAsync(bp => bp.BookProgressId == request.BookProgressId, cancellationToken);
 
-            return progress != null ? progress : new Error("Error", "Progress not found");
+            return progress != null ? progress : new Error("Progress not found");
         }
     }
 }

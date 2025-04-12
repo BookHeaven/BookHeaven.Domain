@@ -23,7 +23,7 @@ public static class GetAuthor
         {
             if(query.Request.AuthorId == null && query.Request.Name == null)
             {
-                return new Error("Error", "You must provide either an AuthorId or a Name");
+                return new Error("You must provide either an AuthorId or a Name");
             }
         
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
@@ -45,11 +45,11 @@ public static class GetAuthor
 
                 var author = await dbQuery.FirstOrDefaultAsync(cancellationToken: cancellationToken);
             
-                return author != null ? author : new Error("Error", "Author not found");
+                return author != null ? author : new Error("Author not found");
             }
             catch (Exception e)
             {
-                return new Error("Error", e.Message);
+                return new Error(e.Message);
             }
         }
     }

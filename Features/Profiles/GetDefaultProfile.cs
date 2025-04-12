@@ -17,7 +17,7 @@ public static class GetDefaultProfile
 
             var profile = await context.Profiles.FirstOrDefaultAsync(p => p.Name == "Default", cancellationToken);
 
-            return profile != null ? profile : new Error("Error", "Default profile not found");
+            return profile != null ? profile : new Error("Default profile not found");
         }
     }
 }
