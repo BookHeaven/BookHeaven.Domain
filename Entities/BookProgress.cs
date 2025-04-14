@@ -25,7 +25,7 @@ public partial class BookProgress : EntityExtensions<BookProgress>
     public decimal Progress { get; set; }
     public DateTimeOffset? StartDate { get; set; }
     public DateTimeOffset? EndDate { get; set; }
-    public DateTimeOffset LastRead { get; set; }
+    public DateTimeOffset? LastRead { get; set; }
     public TimeSpan ElapsedTime { get; set; } = TimeSpan.Zero;
 
 }
