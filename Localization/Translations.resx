@@ -24,4 +24,10 @@
     <data name="ALL_M" xml:space="preserve">
         <value>All</value>
     </data>
+    <data name="NEW" xml:space="preserve">
+        <value>New</value>
+    </data>
+    <data name="FINISHED" xml:space="preserve">
+        <value>Finished</value>
+    </data>
 </root>
