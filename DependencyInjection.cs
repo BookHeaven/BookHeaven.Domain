@@ -1,4 +1,5 @@
 using BookHeaven.Domain.Abstractions.Behaviors;
+using BookHeaven.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,8 +17,12 @@ public static class DependencyInjection
     /// <param name="services"></param>
     /// <param name="dbFolder">The location of the sqlite database</param>
     /// <returns></returns>
-    public static IServiceCollection AddDomain(this IServiceCollection services, string dbFolder)
+    public static IServiceCollection AddDomain(this IServiceCollection services, string booksPath, string coversPath, string fontsPath, string dbFolder)
     {
+        Globals.BooksPath = booksPath;
+        Globals.CoversPath = coversPath;
+        Globals.FontsPath = fontsPath;
+        
         services.AddDbContextFactory<DatabaseContext>(options =>
         {
             options.UseSqlite($"Data Source={Path.Combine(dbFolder, "BookHeaven.db")}");
@@ -41,6 +46,8 @@ public static class DependencyInjection
             config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
             config.AddOpenBehavior(typeof(LoggingPipelineBehavior<,>));
         });
+        
+        services.AddScoped<BookManager>();
         
         return services;
     } 

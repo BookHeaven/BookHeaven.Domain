@@ -28,12 +28,12 @@ public static class BookExtensions
     public static string EpubUrl(this Book book) => "/books/" + book.BookId + ".epub";
     public static string CoverUrl(this Book book) => "/covers/" + book.BookId + ".jpg";
     
-    public static string EpubPath(this Book book, string booksPath) => Path.Combine(booksPath, $"{book.BookId}.epub");
-    public static string CoverPath(this Book book, string coversPath) => Path.Combine(coversPath, $"{book.BookId}.jpg");
+    public static string EpubPath(this Book book) => Path.Combine(Globals.BooksPath, $"{book.BookId}.epub");
+    public static string CoverPath(this Book book) => Path.Combine(Globals.CoversPath, $"{book.BookId}.jpg");
 
-    public static string GetCoverAsBase64(this Book book, string coversPath)
+    public static string GetCoverAsBase64(this Book book)
 	{
-		var path = book.CoverPath(coversPath);
+		var path = book.CoverPath();
 		if (!File.Exists(path))
 		{
 			return string.Empty;
