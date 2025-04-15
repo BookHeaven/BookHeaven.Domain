@@ -12,23 +12,21 @@ public static class FontExtensions
     {
         return $@"@font-face {{
             font-family: '{font.Family}';
-            src: url('{font.Url()}');
-            {(font.Weight != "normal" && font.Weight != "all" ? $"font-weight: {font.Weight};" : string.Empty)}
-            {(font.Style != "normal" && font.Style != "all" ? $"font-style: {font.Style};" : string.Empty)}
+            src: url('{font.Url()}') format('{font.GetFormat()}');
+            {(font.Weight != "all" ? $"font-weight: {font.Weight};" : string.Empty)}
+            {(font.Style != "all" ? $"font-style: {font.Style};" : string.Empty)}
         }}";
     }
 
-    /*private static string GetBase64Src(this Font font)
+    private static string GetFormat(this Font font)
     {
-        if (string.IsNullOrEmpty(font.FileName))
+        return font.FileName.Split(".").Last() switch
         {
-            return string.Empty;
-        }
-        if (!File.Exists(font.FilePath(basePath)))
-        {
-            return string.Empty;
-        }
-        var fileBytes = File.ReadAllBytes(font.FilePath(basePath));
-        return $"data:font/{font.FileName.Split(".")[1]};base64,{Convert.ToBase64String(fileBytes)}";
-    }*/
+            "woff" => "woff",
+            "woff2" => "woff2",
+            "ttf" => "truetype",
+            "otf" => "opentype",
+            _ => string.Empty
+        };
+    }
 }
