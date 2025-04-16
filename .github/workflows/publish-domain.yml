@@ -34,6 +34,8 @@ jobs:
       - name: Publish NuGet package
         run: |
           dotnet pack ./BookHeaven.Domain.csproj --configuration Release --output ./packages
+          dotnet nuget add source --name "github" --source "https://nuget.pkg.github.com/BookHeaven/index.json" \
+            --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
           dotnet nuget push ./packages/BookHeaven.Domain.$VERSION.nupkg \
             --source "github" \
             --api-key ${{ secrets.GITHUB_TOKEN }}
