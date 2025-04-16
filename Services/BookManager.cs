@@ -64,7 +64,7 @@ public class BookManager(
         }
         //await ClearCache(book, false);
         await sender.Send(new DeleteBook.Command(book.BookId));
-        Books.Remove(book);
+        _books.Remove(book);
         await alertService.ShowToastAsync("Book has been deleted");
     }
     
