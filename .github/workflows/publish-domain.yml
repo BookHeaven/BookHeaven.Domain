@@ -24,6 +24,8 @@ jobs:
       - name: Get version
         id: get-version
         run: |
+          sudo apt-get update
+          sudo apt-get install -y libxml2-utils
           VERSION=$(xmllint --xpath "string(//Project/PropertyGroup/Version)" ./BookHeaven.Domain.csproj)
           echo "Domain version: $VERSION"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
