@@ -69,6 +69,33 @@ namespace BookHeaven.Domain.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Book has been deleted.
+        /// </summary>
+        public static string BOOK_DELETED {
+            get {
+                return ResourceManager.GetString("BOOK_DELETED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Book has been marked as finished.
+        /// </summary>
+        public static string BOOK_MARKED_AS_FINISHED {
+            get {
+                return ResourceManager.GetString("BOOK_MARKED_AS_FINISHED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Book has been marked as new.
+        /// </summary>
+        public static string BOOK_MARKED_AS_NEW {
+            get {
+                return ResourceManager.GetString("BOOK_MARKED_AS_NEW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finished.
         /// </summary>
         public static string FINISHED {

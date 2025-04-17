@@ -30,4 +30,13 @@
     <data name="FINISHED" xml:space="preserve">
         <value>Finished</value>
     </data>
+    <data name="BOOK_DELETED" xml:space="preserve">
+        <value>Book has been deleted</value>
+    </data>
+    <data name="BOOK_MARKED_AS_NEW" xml:space="preserve">
+        <value>Book has been marked as new</value>
+    </data>
+    <data name="BOOK_MARKED_AS_FINISHED" xml:space="preserve">
+        <value>Book has been marked as finished</value>
+    </data>
 </root>

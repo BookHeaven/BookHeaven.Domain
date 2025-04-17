@@ -23,4 +23,13 @@
     <data name="FINISHED" xml:space="preserve">
         <value>Terminado</value>
     </data>
+    <data name="BOOK_DELETED" xml:space="preserve">
+        <value>Se ha eliminado el libro</value>
+    </data>
+    <data name="BOOK_MARKED_AS_NEW" xml:space="preserve">
+        <value>Se ha marcado el libro como nuevo</value>
+    </data>
+    <data name="BOOK_MARKED_AS_FINISHED" xml:space="preserve">
+        <value>Se ha marcado el libro como terminado</value>
+    </data>
 </root>

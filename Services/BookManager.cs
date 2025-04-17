@@ -4,6 +4,9 @@ using BookHeaven.Domain.Enums;
 using BookHeaven.Domain.Extensions;
 using BookHeaven.Domain.Features.Books;
 using BookHeaven.Domain.Features.BooksProgress;
+using BookHeaven.Domain.Localization;
+using BookHeaven.Domain.Localization;
+using BookHeaven.Domain.Localization;
 using MediatR;
 
 namespace BookHeaven.Domain.Services;
@@ -65,7 +68,7 @@ public class BookManager(
         //await ClearCache(book, false);
         await sender.Send(new DeleteBook.Command(book.BookId));
         _books.Remove(book);
-        await alertService.ShowToastAsync("Book has been deleted");
+        await alertService.ShowToastAsync(Translations.BOOK_DELETED);
     }
     
     public async Task MarkAsNew(Book book)
@@ -86,7 +89,7 @@ public class BookManager(
         progress.PageCountPrev = 0;
         await sender.Send(new UpdateBookProgress.Command(progress));
         //await ClearCache(book, false);
-        await alertService.ShowToastAsync("Book has been marked as new");
+        await alertService.ShowToastAsync(Translations.BOOK_MARKED_AS_NEW);
     }
     
     public async Task MarkAsFinished(Book book)
@@ -100,6 +103,6 @@ public class BookManager(
         progress.Progress = 100;
         await sender.Send(new UpdateBookProgress.Command(progress));
         //await ClearCache(book, false);
-        await alertService.ShowToastAsync("Book has been marked as finished");
+        await alertService.ShowToastAsync(Translations.BOOK_MARKED_AS_FINISHED);
     }
 }
