@@ -17,8 +17,8 @@ public class BookManager(
 {
     private List<Book> _books = [];
     public List<Book> Books => Filter == BookStatus.All ? _books : _books.Where(b => b.ReadingStatus() == Filter).ToList();
-    
     public bool IsEmpty => _books.Count == 0;
+    public int CountByStatus(BookStatus status) => _books.GetCountByStatus(status);
     
     public BookStatus Filter { get; set; } = BookStatus.All;
 
