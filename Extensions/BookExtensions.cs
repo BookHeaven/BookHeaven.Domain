@@ -22,8 +22,8 @@ public static class BookExtensions
 
         return BookStatus.New;
     }
-
-    public static int GetCount(this List<Book> books, BookStatus status) => books.Count(b => b.ReadingStatus() == status);
+    
+    public static int GetCountByStatus(this List<Book> books, BookStatus status) => books.Count(b => b.ReadingStatus() == status);
     
     public static string EpubUrl(this Book book) => "/books/" + book.BookId + ".epub";
     public static string CoverUrl(this Book book) => "/covers/" + book.BookId + ".jpg";
