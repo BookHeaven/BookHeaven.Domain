@@ -7,7 +7,7 @@
         <LangVersion>default</LangVersion>
         <Authors>Guillem Garrido</Authors>
         <RepositoryUrl>https://github.com/BookHeaven/BookHeaven.Domain</RepositoryUrl>
-        <Version>1.0.4</Version>
+        <Version>1.0.5</Version>
     </PropertyGroup>
 
     <ItemGroup>
