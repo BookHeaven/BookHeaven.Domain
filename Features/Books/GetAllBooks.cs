@@ -8,7 +8,7 @@ namespace BookHeaven.Domain.Features.Books;
 
 public static class GetAllBooks
 {
-    public sealed record Query(Guid ProfileId, string? Filter = null) : IQuery<List<Book>>;
+    public sealed record Query(Guid? ProfileId = null, string? Filter = null) : IQuery<List<Book>>;
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, List<Book>>
     {
@@ -20,7 +20,12 @@ public static class GetAllBooks
                 .Include(b => b.Author)
                 .Include(b => b.Series)
                 .Include(b => b.Tags).AsQueryable();
-
+            
+            if(request.ProfileId is not null)
+            {
+                books = books.Include(b => b.Progresses.Where(bp => bp.ProfileId == request.ProfileId));
+            }
+            
             if (!string.IsNullOrEmpty(request.Filter))
             {
                 books = books.Where(b =>
@@ -28,10 +33,6 @@ public static class GetAllBooks
                     b.Author!.Name!.ToUpper().Contains(request.Filter) ||
                     b.Series!.Name!.ToUpper().Contains(request.Filter) ||
                     b.Tags.Any(t => t.Name.ToUpper().Contains(request.Filter)));
-            }
-            else
-            {
-                books = books.Include(b => b.Progresses.Where(bp => bp.ProfileId == request.ProfileId));
             }
             
             var results = await books.AsSplitQuery().ToListAsync(cancellationToken);
