@@ -34,7 +34,6 @@ jobs:
         id: get-version
         run: |
           VERSION=$(nbgv get-version | grep NuGetPackageVersion | cut -d ':' -f2 | xargs)
-          VERSION=${VERSION%%-*}
           echo "Domain version: $VERSION"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
