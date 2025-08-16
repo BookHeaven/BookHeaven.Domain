@@ -1,19 +1,19 @@
-﻿{
-    "version":  "1.0.12",
-    "cloudBuild":  {
-                       "setVersionVariables":  true,
-                       "buildMetadata":  ""
-                   },
-    "nugetPackageVersion":  {
-                                "semVer":  2,
-                                "precision":  "build"
-                            },
-    "release":  {
-                    "tagName":  "v{version}",
-                    "versionIncrement":  "minor"
-                },
-    "publicReleaseRefSpec":  [
-                                 "^refs/heads/main$",
-                                 "^refs/tags/v\\d+\\.\\d+"
-                             ]
+{
+  "version": "1.0.12",
+  "cloudBuild": {
+    "setVersionVariables": true,
+    "buildMetadata": ""
+  },
+  "nugetPackageVersion": {
+    "semVer": 2,
+    "precision": "build"
+  },
+  "release": {
+    "tagName": "v{version}",
+    "versionIncrement": "minor"
+  },
+  "publicReleaseRefSpec": [
+    "^refs/heads/main$",
+    "^refs/tags/v\\d+\\.\\d+"
+  ]
 }
