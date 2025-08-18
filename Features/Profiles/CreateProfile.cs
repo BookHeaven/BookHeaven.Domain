@@ -20,10 +20,26 @@ public static class CreateProfile
             {
                 Name = request.Name
             };
+            
+            await context.Profiles.AddAsync(profile, cancellationToken);
+            
+            var books = await context.Books
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
+
+            
+            foreach (var book in books)
+            {
+                var progress = new BookProgress
+                {
+                    BookId = book.BookId,
+                    ProfileId = profile.ProfileId,
+                };
+                await context.BooksProgress.AddAsync(progress, cancellationToken);
+            }
 
             try 
             {
-                await context.Profiles.AddAsync(profile, cancellationToken);
                 await context.SaveChangesAsync(cancellationToken);
             }
             catch (Exception e)
