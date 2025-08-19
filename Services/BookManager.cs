@@ -38,7 +38,7 @@ public class BookManager(
         if (showToast) await alertService.ShowToast("Cache cleared");
     }*/
     
-    public async Task GetBooks(Guid profileId)
+    public async Task GetBooksAsync(Guid profileId)
     {
         var getBooks = await sender.Send(new GetAllBooks.Query(profileId));
         if (getBooks.IsSuccess)
@@ -47,7 +47,7 @@ public class BookManager(
         }
     }
     
-    public async Task DeleteBook(Book book)
+    public async Task DeleteBookAsync(Book book)
     {
         var result = await alertService.ShowConfirmationAsync("Delete book", $"Are you sure you want to delete this book?{Environment.NewLine}{Environment.NewLine}This will remove the book from your device along with any progress you have.{Environment.NewLine}It will not be removed from your server.");
         if (!result) return;
@@ -69,7 +69,7 @@ public class BookManager(
         await alertService.ShowToastAsync(Translations.BOOK_DELETED);
     }
     
-    public async Task MarkAsNew(Book book)
+    public async Task MarkAsNewAsync(Book book)
     {
         var result = await alertService.ShowConfirmationAsync("Are you sure?", "This will reset your progress, which can't be undone unless you delete the book and download it again.");
         if (!result) return;
@@ -90,7 +90,7 @@ public class BookManager(
         await alertService.ShowToastAsync(Translations.BOOK_MARKED_AS_NEW);
     }
     
-    public async Task MarkAsFinished(Book book)
+    public async Task MarkAsFinishedAsync(Book book)
     {
         var progress = book.Progress();
         if(progress.ElapsedTime == TimeSpan.Zero)
