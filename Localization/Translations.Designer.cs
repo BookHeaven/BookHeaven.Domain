@@ -96,6 +96,15 @@ namespace BookHeaven.Domain.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string DELETE {
+            get {
+                return ResourceManager.GetString("DELETE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finished.
         /// </summary>
         public static string FINISHED {
@@ -114,11 +123,38 @@ namespace BookHeaven.Domain.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string NO {
+            get {
+                return ResourceManager.GetString("NO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reading.
         /// </summary>
         public static string READING {
             get {
                 return ResourceManager.GetString("READING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string WARNING {
+            get {
+                return ResourceManager.GetString("WARNING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string YES {
+            get {
+                return ResourceManager.GetString("YES", resourceCulture);
             }
         }
     }

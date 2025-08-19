@@ -32,4 +32,16 @@
     <data name="BOOK_MARKED_AS_FINISHED" xml:space="preserve">
         <value>Se ha marcado el libro como terminado</value>
     </data>
+    <data name="DELETE" xml:space="preserve">
+        <value>Eliminar</value>
+    </data>
+    <data name="YES" xml:space="preserve">
+        <value>Sí</value>
+    </data>
+    <data name="NO" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="WARNING" xml:space="preserve">
+        <value>Aviso</value>
+    </data>
 </root>
