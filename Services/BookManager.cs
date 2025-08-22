@@ -46,6 +46,19 @@ public class BookManager(
             _books = getBooks.Value;
         }
     }
+
+    public async Task AppendBookAsync(Guid profileId, Guid bookId)
+    {
+        var getBook = await sender.Send(new GetBook.Query(bookId));
+        if(getBook.IsFailure) return;
+        
+        var getProgress = await sender.Send(new GetBookProgressByProfile.Query(bookId,profileId));
+        if(getProgress.IsFailure) return;
+        
+        var book = getBook.Value;
+        book.Progresses.Add(getProgress.Value);
+        _books.Add(book);
+    }
     
     public async Task DeleteBookAsync(Book book)
     {
