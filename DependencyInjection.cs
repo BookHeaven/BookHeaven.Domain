@@ -46,7 +46,8 @@ public static class DependencyInjection
             config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
             config.AddOpenBehavior(typeof(LoggingPipelineBehavior<,>));
         });
-        
+
+        services.AddSingleton<GlobalEventsService>();
         services.AddScoped<BookManager>();
         
         return services;
