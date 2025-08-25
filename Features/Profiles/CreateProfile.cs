@@ -7,12 +7,14 @@ namespace BookHeaven.Domain.Features.Profiles;
 
 public static class CreateProfile
 {
-    public sealed record Command(string Name) : ICommand<Profile>;
+    public sealed record Response(Guid ProfileId, int TotalProfiles);
+    
+    public sealed record Command(string Name) : ICommand<Response>;
 
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command, Profile>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command, Response>
     {
 
-        public async Task<Result<Profile>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<Result<Response>> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
@@ -47,7 +49,7 @@ public static class CreateProfile
                 return new Error(e.Message);
             }
         
-            return profile;
+            return new Response(profile.ProfileId, await context.Profiles.CountAsync(cancellationToken));
         }
     }
 }
