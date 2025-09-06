@@ -17,13 +17,21 @@ public static class GetProfileSettings
     {
         public async Task<Result<ProfileSettings>> Handle(Query request, CancellationToken cancellationToken)
         {
-            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
-            var profileSettings = await context.ProfilesSettings
-                .FirstOrDefaultAsync(ps => ps.ProfileId == request.ProfileId, cancellationToken);
+            try
+            {
+                await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+                var profileSettings = await context.ProfilesSettings
+                    .FirstOrDefaultAsync(ps => ps.ProfileId == request.ProfileId, cancellationToken);
             
-            return profileSettings != null
-                ? profileSettings
-                : new Error("Profile settings not found");
+                return profileSettings != null
+                    ? profileSettings
+                    : new Error("Profile settings not found");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error getting profile settings for profile {ProfileId}", request.ProfileId);
+                return new Error("Error getting profile settings");
+            }
         }
     }
 }
