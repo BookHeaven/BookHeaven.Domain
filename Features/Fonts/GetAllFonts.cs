@@ -16,11 +16,20 @@ public static class GetAllFonts
     {
         public async Task<Result<List<Font>>> Handle(Query request, CancellationToken cancellationToken)
         {
-            await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
-            var fonts = await context.Fonts
-                .Where(f => request.FamilyName == null || f.Family == request.FamilyName)
-                .ToListAsync(cancellationToken);
-            return fonts;
+            try
+            {
+                await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+                var fonts = await context.Fonts
+                    .Where(f => request.FamilyName == null || f.Family == request.FamilyName)
+                    .ToListAsync(cancellationToken);
+                return fonts;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error getting fonts");
+                return new Error("Error getting fonts");
+            }
+            
         }
     }
 }
