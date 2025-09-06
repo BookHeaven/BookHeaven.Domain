@@ -7,32 +7,33 @@
         <LangVersion>default</LangVersion>
         <Authors>Guillem Garrido</Authors>
         <RepositoryUrl>https://github.com/BookHeaven/BookHeaven.Domain</RepositoryUrl>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR" Version="12.5.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.8" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8" />
-      <PackageReference Include="Nerdbank.GitVersioning" Version="3.7.115">
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        <PrivateAssets>all</PrivateAssets>
-      </PackageReference>
+        <PackageReference Include="MediatR" Version="12.5.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8"/>
+        <PackageReference Include="Nerdbank.GitVersioning" Version="3.7.115">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Localization\Translations.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Translations.resx</DependentUpon>
-      </Compile>
+        <Compile Update="Localization\Translations.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Translations.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Localization\Translations.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>Translations.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+        <EmbeddedResource Update="Localization\Translations.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Translations.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
 
 </Project>
