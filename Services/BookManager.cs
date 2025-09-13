@@ -5,6 +5,7 @@ using BookHeaven.Domain.Extensions;
 using BookHeaven.Domain.Features.Books;
 using BookHeaven.Domain.Features.BooksProgress;
 using BookHeaven.Domain.Localization;
+using BookHeaven.Domain.Shared;
 using MediatR;
 
 namespace BookHeaven.Domain.Services;
@@ -62,24 +63,30 @@ public class BookManager(
     
     public async Task DeleteBookAsync(Book book)
     {
-        var result = await alertService.ShowConfirmationAsync("Delete book", $"Are you sure you want to delete this book?{Environment.NewLine}{Environment.NewLine}This will remove the book from your device along with any progress you have.{Environment.NewLine}It will not be removed from your server.");
-        if (!result) return;
-        
         var epubPath = book.EpubPath();
         var coverPath = book.CoverPath();
+
+        try
+        {
+            if (File.Exists(epubPath))
+            {
+                File.Delete(epubPath);
+            }
+
+            if (File.Exists(coverPath))
+            {
+                File.Delete(coverPath);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Failed to delete book files", ex);
+        }
         
-        if (File.Exists(epubPath))
-        {
-            File.Delete(epubPath);
-        }
-        if (File.Exists(coverPath))
-        {
-            File.Delete(coverPath);
-        }
-        //await ClearCache(book, false);
-        await sender.Send(new DeleteBook.Command(book.BookId));
-        _books.Remove(book);
-        await alertService.ShowToastAsync(Translations.BOOK_DELETED);
+        var deleteBook = await sender.Send(new DeleteBook.Command(book.BookId));
+        if (deleteBook.IsFailure) throw new Exception(deleteBook.Error.Description);
+        
+        if(_books.Count > 0) _books.Remove(book);
     }
     
     public async Task MarkAsNewAsync(Book book)
