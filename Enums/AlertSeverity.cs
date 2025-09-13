@@ -4,5 +4,6 @@ public enum AlertSeverity
 {
     Info,
     Error,
-    Warning
+    Warning,
+    Success
 }
