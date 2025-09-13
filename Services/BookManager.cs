@@ -89,6 +89,15 @@ public class BookManager(
         if(_books.Count > 0) _books.Remove(book);
     }
     
+    public async Task DeleteBooksAsync(List<Guid> guids)
+    {
+        var booksToDelete = _books.Where(b => guids.Contains(b.BookId)).ToList();
+        foreach (var book in booksToDelete)
+        {
+            await DeleteBookAsync(book);
+        }
+    }
+    
     public async Task MarkAsNewAsync(Book book)
     {
         var result = await alertService.ShowConfirmationAsync("Are you sure?", "This will reset your progress, which can't be undone unless you delete the book and download it again.");
