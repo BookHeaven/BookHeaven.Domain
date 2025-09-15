@@ -1,5 +1,7 @@
 ﻿using BookHeaven.Domain.Entities;
+using BookHeaven.Domain.Events;
 using BookHeaven.Domain.Extensions;
+using BookHeaven.Domain.Services;
 
 namespace BookHeaven.Domain.Features.Books;
 
@@ -7,7 +9,9 @@ public static class AddBook
 {
     public sealed record Command(Book Book, string CoverPath, string EpubPath) : ICommand<Guid>;
 
-    internal class CommandHandler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command, Guid>
+    internal class CommandHandler(
+        IDbContextFactory<DatabaseContext> dbContextFactory,
+        GlobalEventsService globalEventsService) : ICommandHandler<Command, Guid>
     {
         public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
         {
@@ -37,6 +41,22 @@ public static class AddBook
                 }
             }
             
+            var profiles = await context.Profiles.ToListAsync(cancellationToken);
+            foreach (var profile in profiles)
+            {
+                var existingProgress = await context.BooksProgress
+                    .FirstOrDefaultAsync(bp => bp.BookId == request.Book.BookId && bp.ProfileId == profile.ProfileId, cancellationToken);
+                if (existingProgress is not null) continue;
+                
+                var progress = new BookProgress
+                {
+                    Book = request.Book,
+                    Profile = profile
+                };
+                await context.BooksProgress.AddAsync(progress, cancellationToken);
+
+            }
+            
             try 
             {
                 await context.SaveChangesAsync(cancellationToken);
@@ -47,6 +67,8 @@ public static class AddBook
             {
                 return new Error(e.Message);
             }
+            
+            await globalEventsService.Publish(new BookAdded(request.Book.BookId));
             return request.Book.BookId;
         }
     }
