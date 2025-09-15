@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookHeaven.Domain.Features.Books;
 
-
+[Obsolete("Use AddBook command instead")]
 public static class CreateBook
 {
     public sealed record Command(
