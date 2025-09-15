@@ -1,9 +1,6 @@
-﻿using BookHeaven.Domain.Abstractions.Messaging;
-using BookHeaven.Domain.Entities;
-using BookHeaven.Domain.Shared;
-using Microsoft.EntityFrameworkCore;
+﻿using BookHeaven.Domain.Entities;
 
-namespace BookHeaven.Domain.Features.Seriess;
+namespace BookHeaven.Domain.Features.BookSeries;
 
 public static class UpdateSeries {
     public sealed record Command(Series Series) : ICommand<Series>;
