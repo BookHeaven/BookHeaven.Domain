@@ -19,7 +19,7 @@ public static class AddCollection
         {
             await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             
-            var sortOrder = await dbContext.Collections.MaxAsync(c => c.SortOrder, cancellationToken);
+            var sortOrder = await dbContext.Collections.MaxAsync(c => (int?)c.SortOrder, cancellationToken) ?? 0;
             request.Collection.SortOrder = sortOrder + 1;
             
             try
