@@ -3,6 +3,7 @@ using System;
 using BookHeaven.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,12 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookHeaven.Domain.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250914182710_RenameTagTableToTags")]
+    partial class RenameTagTableToTags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.8");
 
             modelBuilder.Entity("BookHeaven.Domain.Entities.Author", b =>
                 {
@@ -35,6 +38,38 @@ namespace BookHeaven.Domain.Migrations
                     b.HasKey("AuthorId");
 
                     b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("BookHeaven.Domain.Entities.Base.Collection", b =>
+                {
+                    b.Property<Guid>("CollectionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CollectionType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Pinned")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("ProfileId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CollectionId");
+
+                    b.ToTable("Collections", (string)null);
+
+                    b.HasDiscriminator<int>("CollectionType");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("BookHeaven.Domain.Entities.Book", b =>
@@ -270,6 +305,44 @@ namespace BookHeaven.Domain.Migrations
                     b.HasIndex("TagsTagId");
 
                     b.ToTable("BookTag");
+                });
+
+            modelBuilder.Entity("BookHeaven.Domain.Entities.SimpleCollection", b =>
+                {
+                    b.HasBaseType("BookHeaven.Domain.Entities.Base.Collection");
+
+                    b.PrimitiveCollection<string>("BookIds")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasDiscriminator().HasValue(0);
+                });
+
+            modelBuilder.Entity("BookHeaven.Domain.Entities.SmartCollection", b =>
+                {
+                    b.HasBaseType("BookHeaven.Domain.Entities.Base.Collection");
+
+                    b.Property<string>("Authors")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Series")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Statuses")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tags")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
+                    b.HasDiscriminator().HasValue(1);
                 });
 
             modelBuilder.Entity("BookHeaven.Domain.Entities.Book", b =>

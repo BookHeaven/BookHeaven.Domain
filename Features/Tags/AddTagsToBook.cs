@@ -1,7 +1,4 @@
-﻿using BookHeaven.Domain.Abstractions.Messaging;
-using BookHeaven.Domain.Entities;
-using BookHeaven.Domain.Shared;
-using Microsoft.EntityFrameworkCore;
+﻿using BookHeaven.Domain.Entities;
 using Microsoft.Extensions.Logging;
 
 namespace BookHeaven.Domain.Features.Tags;
@@ -33,7 +30,7 @@ public static class AddTagsToBook
             
             foreach (var tagName in request.Names.Split(",", StringSplitOptions.RemoveEmptyEntries))
             {
-                var tag = await context.Set<Tag>().FirstOrDefaultAsync(t => t.Name == tagName, cancellationToken) ?? new()
+                var tag = await context.Tags.FirstOrDefaultAsync(t => t.Name == tagName, cancellationToken) ?? new()
                 {
                     Name = tagName
                 };
