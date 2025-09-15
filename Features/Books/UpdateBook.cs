@@ -8,7 +8,7 @@ namespace BookHeaven.Domain.Features.Books;
 
 public static class UpdateBook
 {
-    public sealed record Command(Book Book) : ICommand;
+    public sealed record Command(Book Book, string? CoverSourcePath, string? EpubSourcePath) : ICommand;
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command>
     {
@@ -38,10 +38,13 @@ public static class UpdateBook
             try
             {
                 await context.SaveChangesAsync(cancellationToken);
+                await Utilities.StoreFile(request.CoverSourcePath, book.CoverPath(), cancellationToken);
+                await Utilities.StoreFile(request.EpubSourcePath, book.EpubPath(), cancellationToken);
+                
             }
             catch (DbUpdateException)
             {
-                return Result.Failure(new Error("An error occurred while updating the book"));
+                return new Error("An error occurred while updating the book");
             }
 
             return Result.Success();
