@@ -12,7 +12,7 @@ public static class GetPinnedCollectionsByProfile
         {
             await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-            return await dbContext.Collections.Where(c => c.ProfileId == null || c.ProfileId == request.ProfileId && c.Pinned == true).OrderBy(c => c.SortOrder).ToListAsync(cancellationToken);
+            return await dbContext.Collections.Where(c => (c.ProfileId == null || c.ProfileId == request.ProfileId) && c.Pinned == true).OrderBy(c => c.SortOrder).ToListAsync(cancellationToken);
         }
     }
 }
