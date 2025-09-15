@@ -5,3 +5,7 @@ namespace BookHeaven.Domain.Events;
 public record BookAdded(Guid BookId) : IEvent;
 public record BookUpdated(Guid BookId) : IEvent;
 public record BookDeleted(Guid BookId) : IEvent;
+
+public record CollectionCreated(Guid CollectionId) : IEvent;
+public record CollectionUpdated(Guid CollectionId) : IEvent;
+public record CollectionDeleted(Guid CollectionId) : IEvent;
