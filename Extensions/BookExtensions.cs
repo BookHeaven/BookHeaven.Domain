@@ -1,4 +1,5 @@
 ﻿using BookHeaven.Domain.Entities;
+using BookHeaven.Domain.Entities.Base;
 using BookHeaven.Domain.Enums;
 using BookHeaven.Domain.Helpers;
 
@@ -62,6 +63,47 @@ public static class BookExtensions
 		book.ASIN = updatedBook.ASIN;
 		book.UUID = updatedBook.UUID;
 		book.Language = updatedBook.Language;
+	}
+	
+	public static IEnumerable<Book> ApplyDefaultSorting(this IEnumerable<Book> books)
+	{
+		return books.OrderBy(b => b.Author?.Name).ThenBy(b => b.Series?.Name).ThenBy(b => b.SeriesIndex);
+	}
+
+	public static IEnumerable<Book> ApplyCollectionFilter(this IEnumerable<Book> books, Collection collection)
+	{
+		switch (collection)
+		{
+			case SimpleCollection simpleCollection:
+				return books.Where(b => simpleCollection.BookIds.Contains(b.BookId)).ToList();
+			case SmartCollection smartCollection:
+				// Include logic: OR between all includes, if all are empty include all
+				var hasAnyInclude = smartCollection.Authors.Include.Count > 0 ||
+									 smartCollection.Series.Include.Count > 0 ||
+									 smartCollection.Statuses.Include.Count > 0 ||
+									 smartCollection.Tags.Include.Count > 0;
+
+				var filtered = books.Where(b =>
+					!hasAnyInclude || (
+						(smartCollection.Authors.Include.Count > 0 && smartCollection.Authors.Include.Contains(b.AuthorId ?? Guid.Empty)) ||
+						(smartCollection.Series.Include.Count > 0 && smartCollection.Series.Include.Contains(b.SeriesId ?? Guid.Empty)) ||
+						(smartCollection.Statuses.Include.Count > 0 && smartCollection.Statuses.Include.Contains(b.ReadingStatus())) ||
+						(smartCollection.Tags.Include.Count > 0 && b.Tags.Any(t => smartCollection.Tags.Include.Contains(t.TagId)))
+					)
+				);
+
+				// Exclude logic: OR between all excludes
+				filtered = filtered.Where(b =>
+					(smartCollection.Authors.Exclude.Count == 0 || !smartCollection.Authors.Exclude.Contains(b.AuthorId ?? Guid.Empty)) &&
+					(smartCollection.Series.Exclude.Count == 0 || !smartCollection.Series.Exclude.Contains(b.SeriesId ?? Guid.Empty)) &&
+					(smartCollection.Statuses.Exclude.Count == 0 || !smartCollection.Statuses.Exclude.Contains(b.ReadingStatus())) &&
+					(smartCollection.Tags.Exclude.Count == 0 || !b.Tags.Any(t => smartCollection.Tags.Exclude.Contains(t.TagId)))
+				);
+
+				return filtered;
+			default:
+				throw new NotImplementedException($"Collection type {collection.GetType().Name} not implemented");
+		}
 	}
 
 	
