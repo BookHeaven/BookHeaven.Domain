@@ -15,6 +15,9 @@ public static class DependencyInjection
     /// Applies any pending migrations on startup.
     /// </summary>
     /// <param name="services"></param>
+    /// <param name="booksPath">The location to store the books</param>
+    /// <param name="coversPath">The location to store the covers</param>
+    /// <param name="fontsPath">The location to store the fonts</param>
     /// <param name="dbFolder">The location of the sqlite database</param>
     /// <returns></returns>
     public static IServiceCollection AddDomain(this IServiceCollection services, string booksPath, string coversPath, string fontsPath, string dbFolder)
