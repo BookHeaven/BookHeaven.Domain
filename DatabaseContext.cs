@@ -26,6 +26,11 @@ public partial class DatabaseContext(DbContextOptions<DatabaseContext> options) 
         modelBuilder.Entity<Book>()
             .HasMany(b => b.Tags)
             .WithMany();
+        
+        modelBuilder.Entity<Book>()
+            .Property(b => b.Format)
+            .HasDefaultValue(EbookFormat.Epub)
+            .HasSentinel(EbookFormat.None);
 
         modelBuilder.Entity<Collection>(entity =>
         {

@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using BookHeaven.Domain.Enums;
 using BookHeaven.Domain.Extensions;
-using BookHeaven.Domain.Helpers;
 
 namespace BookHeaven.Domain.Entities;
 
@@ -27,6 +27,7 @@ public partial class Book : EntityExtensions<Book>
     public string? ASIN { get; set; }
     public string? UUID { get; set; }
     public string? Language { get; set; }
+    public EbookFormat Format { get; set; } = EbookFormat.Epub;
     
     public virtual List<Tag> Tags { get; set; } = [];
 
