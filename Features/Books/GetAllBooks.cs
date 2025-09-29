@@ -3,6 +3,7 @@ using BookHeaven.Domain.Entities;
 using BookHeaven.Domain.Shared;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace BookHeaven.Domain.Features.Books;
 
@@ -10,34 +11,45 @@ public static class GetAllBooks
 {
     public sealed record Query(Guid? ProfileId = null, string? Filter = null) : IQuery<List<Book>>;
 
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, List<Book>>
+    internal class Handler(
+        IDbContextFactory<DatabaseContext> dbContextFactory,
+        ILogger<Handler> logger) : IQueryHandler<Query, List<Book>>
     {
         public async Task<Result<List<Book>>> Handle(Query request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-            var books = context.Books
-                .Include(b => b.Author)
-                .Include(b => b.Series)
-                .Include(b => b.Tags).AsQueryable();
-            
-            if(request.ProfileId is not null)
+            try
             {
-                books = books.Include(b => b.Progresses.Where(bp => bp.ProfileId == request.ProfileId));
-            }
+                var books = context.Books
+                    .Include(b => b.Author)
+                    .Include(b => b.Series)
+                    .Include(b => b.Tags).AsQueryable();
             
-            if (!string.IsNullOrEmpty(request.Filter))
-            {
-                books = books.Where(b =>
-                    b.Title!.ToUpper().Contains(request.Filter) ||
-                    b.Author!.Name!.ToUpper().Contains(request.Filter) ||
-                    b.Series!.Name!.ToUpper().Contains(request.Filter) ||
-                    b.Tags.Any(t => t.Name.ToUpper().Contains(request.Filter)));
-            }
+                if(request.ProfileId is not null)
+                {
+                    books = books.Include(b => b.Progresses.Where(bp => bp.ProfileId == request.ProfileId));
+                }
             
-            var results = await books.AsSplitQuery().ToListAsync(cancellationToken);
+                if (!string.IsNullOrEmpty(request.Filter))
+                {
+                    books = books.Where(b =>
+                        b.Title!.ToUpper().Contains(request.Filter) ||
+                        b.Author!.Name!.ToUpper().Contains(request.Filter) ||
+                        b.Series!.Name!.ToUpper().Contains(request.Filter) ||
+                        b.Tags.Any(t => t.Name.ToUpper().Contains(request.Filter)));
+                }
+            
+                var results = await books.AsSplitQuery().ToListAsync(cancellationToken);
 
-            return results.Count > 0 ? results : new Error("No books found");
+                return results;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to retrieve books");
+                return new Error("Failed to retrieve books");
+            }
+            
         }
     }
 }
