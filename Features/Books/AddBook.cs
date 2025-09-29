@@ -7,7 +7,7 @@ namespace BookHeaven.Domain.Features.Books;
 
 public static class AddBook
 {
-    public sealed record Command(Book Book, string CoverPath, string EpubPath) : ICommand<Guid>;
+    public sealed record Command(Book Book, string CoverPath, string EpubPath, bool InitializeProgress = true) : ICommand<Guid>;
 
     internal class CommandHandler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
@@ -40,22 +40,26 @@ public static class AddBook
                     }
                 }
             }
-            
-            var profiles = await context.Profiles.ToListAsync(cancellationToken);
-            foreach (var profile in profiles)
-            {
-                var existingProgress = await context.BooksProgress
-                    .FirstOrDefaultAsync(bp => bp.BookId == request.Book.BookId && bp.ProfileId == profile.ProfileId, cancellationToken);
-                if (existingProgress is not null) continue;
-                
-                var progress = new BookProgress
-                {
-                    Book = request.Book,
-                    Profile = profile
-                };
-                await context.BooksProgress.AddAsync(progress, cancellationToken);
 
+            if (request.InitializeProgress)
+            {
+                var profiles = await context.Profiles.ToListAsync(cancellationToken);
+                foreach (var profile in profiles)
+                {
+                    var existingProgress = await context.BooksProgress
+                        .FirstOrDefaultAsync(bp => bp.BookId == request.Book.BookId && bp.ProfileId == profile.ProfileId, cancellationToken);
+                    if (existingProgress is not null) continue;
+                
+                    var progress = new BookProgress
+                    {
+                        Book = request.Book,
+                        Profile = profile
+                    };
+                    await context.BooksProgress.AddAsync(progress, cancellationToken);
+
+                }
             }
+            
             
             try 
             {
