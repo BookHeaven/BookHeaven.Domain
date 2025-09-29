@@ -26,7 +26,9 @@ public static class BookExtensions
     
     public static int GetCountByStatus(this List<Book> books, BookStatus status) => books.Count(b => b.ReadingStatus() == status);
     
+    [Obsolete("Use EbookUrl instead")]
     public static string EpubUrl(this Book book) => "/books/" + book.BookId + ".epub";
+    public static string EbookUrl(this Book book) => "/books/" + book.BookId + book.Format.GetExtension();
 
     public static string CoverUrl(this Book book, bool appendVersion = false)
     {
@@ -36,7 +38,9 @@ public static class BookExtensions
 	    return url + "?v=" + version;
     }
     
+    [Obsolete("Use EbookPath instead")]
     public static string EpubPath(this Book book) => Path.Combine(Globals.BooksPath, $"{book.BookId}.epub");
+    public static string EbookPath(this Book book) => Path.Combine(Globals.BooksPath, $"{book.BookId}{book.Format.GetExtension()}");
     public static string CoverPath(this Book book) => Path.Combine(Globals.CoversPath, $"{book.BookId}.jpg");
 
     public static string GetCoverAsBase64(this Book book)
