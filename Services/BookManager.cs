@@ -61,40 +61,12 @@ public class BookManager(
         _books.Add(book);
     }
     
-    public async Task DeleteBookAsync(Book book)
+    public void RemoveBook(Guid bookId)
     {
-        var epubPath = book.EpubPath();
-        var coverPath = book.CoverPath();
-
-        try
+        var book = _books.FirstOrDefault(b => b.BookId == bookId);
+        if (book != null)
         {
-            if (File.Exists(epubPath))
-            {
-                File.Delete(epubPath);
-            }
-
-            if (File.Exists(coverPath))
-            {
-                File.Delete(coverPath);
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("Failed to delete book files", ex);
-        }
-        
-        var deleteBook = await sender.Send(new DeleteBook.Command(book.BookId));
-        if (deleteBook.IsFailure) throw new Exception(deleteBook.Error.Description);
-        
-        if(_books.Count > 0) _books.Remove(book);
-    }
-    
-    public async Task DeleteBooksAsync(List<Guid> guids)
-    {
-        var booksToDelete = _books.Where(b => guids.Contains(b.BookId)).ToList();
-        foreach (var book in booksToDelete)
-        {
-            await DeleteBookAsync(book);
+            _books.Remove(book);
         }
     }
     
