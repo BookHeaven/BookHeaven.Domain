@@ -7,7 +7,7 @@ namespace BookHeaven.Domain.Extensions;
 
 public static class BookExtensions
 {
-	public static string FormattedFileName(this Book book) => $"{(book.Author != null).Then($"{book.Author?.Name} - ")}{(book.Series != null).Then($"{book.Series?.Name} ({book.SeriesIndex?.ToString("0.##")}) - ")}{book.Title}.epub";
+	public static string FormattedFileName(this Book book) => $"{(book.Author != null).Then($"{book.Author?.Name} - ")}{(book.Series != null).Then($"{book.Series?.Name} ({book.SeriesIndex?.ToString("0.##")}) - ")}{book.Title}{book.Format.GetExtension()}";
     public static BookProgress Progress(this Book book) => book.Progresses.First();
     public static BookStatus ReadingStatus(this Book book)
     {
