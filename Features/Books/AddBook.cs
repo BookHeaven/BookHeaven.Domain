@@ -65,7 +65,7 @@ public static class AddBook
             {
                 await context.SaveChangesAsync(cancellationToken);
                 await Utilities.StoreFile(request.CoverPath, request.Book.CoverPath(), cancellationToken);
-                await Utilities.StoreFile(request.EpubPath, request.Book.EpubPath(), cancellationToken);
+                await Utilities.StoreFile(request.EpubPath, request.Book.EbookPath(), cancellationToken);
             }
             catch (Exception e)
             {

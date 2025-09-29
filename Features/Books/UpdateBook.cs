@@ -39,7 +39,7 @@ public static class UpdateBook
             {
                 await context.SaveChangesAsync(cancellationToken);
                 await Utilities.StoreFile(request.CoverSourcePath, book.CoverPath(), cancellationToken);
-                await Utilities.StoreFile(request.EpubSourcePath, book.EpubPath(), cancellationToken);
+                await Utilities.StoreFile(request.EpubSourcePath, book.EbookPath(), cancellationToken);
                 
             }
             catch (DbUpdateException)
