@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using BookHeaven.Domain.Enums;
 using BookHeaven.Domain.Localization;
 
 namespace BookHeaven.Domain.Extensions;
@@ -16,4 +17,25 @@ public static class EnumExtensions
         var field = typeof(T).GetField(fieldName, BindingFlags.Public | BindingFlags.Static);
         return field?.GetCustomAttribute<StringValueAttribute>()?.Value ?? fieldName;
     }
+    
+    public static string GetExtension(this EbookFormat format) => format switch
+    {
+        EbookFormat.Epub => ".epub",
+        EbookFormat.Pdf => ".pdf",
+        _ => throw new ArgumentOutOfRangeException(nameof(format), format, null)
+    };
+    
+    public static EbookFormat GetFormatByExtension(string extension) => extension.ToLower() switch
+    {
+        ".epub" => EbookFormat.Epub,
+        ".pdf" => EbookFormat.Pdf,
+        _ => throw new ArgumentOutOfRangeException(nameof(extension), extension, null)
+    };
+    
+    public static string GetMimeType(this EbookFormat format) => format switch
+    {
+        EbookFormat.Epub => "application/epub+zip",
+        EbookFormat.Pdf => "application/pdf",
+        _ => throw new ArgumentOutOfRangeException(nameof(format), format, null)
+    };
 }
