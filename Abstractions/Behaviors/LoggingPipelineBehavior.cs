@@ -13,11 +13,11 @@ internal sealed class LoggingPipelineBehavior<TRequest, TResponse>(
     {
         Stopwatch stopwatch = new();
         var name = typeof(TRequest).DeclaringType?.Name ?? typeof(TRequest).Name;
-        logger.LogInformation("Handling {string} ({date})",name, DateTime.Now.ToString("g"));
+        logger.LogDebug("Handling {string} ({date})",name, DateTime.Now.ToString("g"));
         stopwatch.Start();
         var response = await next(cancellationToken);
         stopwatch.Stop();
-        logger.LogInformation("Handled {string} in {long}ms", name, stopwatch.ElapsedMilliseconds);
+        logger.LogDebug("Handled {string} in {long}ms", name, stopwatch.ElapsedMilliseconds);
         stopwatch.Reset();
         
         return response;
