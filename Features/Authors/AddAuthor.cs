@@ -15,6 +15,8 @@ public static class AddAuthor
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             
+            
+            
             await context.Authors.AddAsync(request.Author, cancellationToken);
             
             try 
