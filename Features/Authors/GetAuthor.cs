@@ -43,7 +43,7 @@ public static class GetAuthor
                         .ThenInclude(b => b.Progresses.Where(bp => bp.ProfileId == query.Request.ProfileId));
                 }
 
-                var author = await dbQuery.FirstOrDefaultAsync(cancellationToken: cancellationToken);
+                var author = await dbQuery.AsSplitQuery().FirstOrDefaultAsync(cancellationToken: cancellationToken);
             
                 return author != null ? author : new Error("Author not found");
             }
