@@ -14,8 +14,15 @@ public static class UpdateAuthor
         public async Task<Result<Author>> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
-        
-            context.Authors.Update(request.Author);
+            
+            var existingAuthor = await context.Authors.FirstOrDefaultAsync(a => a.AuthorId == request.Author.AuthorId, cancellationToken);
+            if (existingAuthor == null)
+            {
+                return new Error("Author not found");
+            }
+            
+            existingAuthor.Name = request.Author.Name;
+            existingAuthor.Biography = request.Author.Biography;
         
             try
             {
