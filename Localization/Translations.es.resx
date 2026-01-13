@@ -44,4 +44,7 @@
     <data name="WARNING" xml:space="preserve">
         <value>Aviso</value>
     </data>
+    <data name="NEW_F" xml:space="preserve">
+        <value>Nueva</value>
+    </data>
 </root>

@@ -123,6 +123,15 @@ namespace BookHeaven.Domain.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string NEW_F {
+            get {
+                return ResourceManager.GetString("NEW_F", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string NO {
