@@ -36,6 +36,10 @@ public static class RemoveTagsFromBook
             foreach (var tag in tagsToRemove)
             {
                 book.Tags.Remove(tag);
+                if (!context.Books.Any(b => b.Tags.Any(t => t.TagId == tag.TagId)))
+                {
+                    context.Tags.Remove(tag);
+                }
             }
 
             try

@@ -35,6 +35,11 @@ public static class RemoveTagFromBook
 
             book.Tags.Remove(tag);
 
+            if (!context.Books.Any(b => b.Tags.Any(t => t.TagId == request.TagId)))
+            {
+                context.Tags.Remove(tag);
+            }
+
             try
             {
                 await context.SaveChangesAsync(cancellationToken);
