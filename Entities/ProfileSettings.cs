@@ -23,6 +23,7 @@ public class ProfileSettings
     public decimal TextIndent { get; set; } = 1;
     public decimal HorizontalMargin { get; set; } = 3;
     public decimal VerticalMargin { get; set; } = 1;
+    public decimal PageGap { get; set; } = 50;
     public int SelectedLayout { get; set; } = 0;
     public string SelectedFont { get; set; } = string.Empty;
 }
