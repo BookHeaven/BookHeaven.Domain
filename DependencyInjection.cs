@@ -15,20 +15,17 @@ public static class DependencyInjection
     /// Applies any pending migrations on startup.
     /// </summary>
     /// <param name="services"></param>
-    /// <param name="booksPath">The location to store the books</param>
-    /// <param name="coversPath">The location to store the covers</param>
-    /// <param name="fontsPath">The location to store the fonts</param>
-    /// <param name="dbFolder">The location of the sqlite database</param>
-    /// <returns></returns>
-    public static IServiceCollection AddDomain(this IServiceCollection services, string booksPath, string coversPath, string fontsPath, string dbFolder)
+    /// <param name="folders">Action to configure the folder paths for books, covers, fonts, and database</param>
+    public static IServiceCollection AddDomain(this IServiceCollection services, Action<DomainOptions> folders)
     {
-        Globals.BooksPath = booksPath;
-        Globals.CoversPath = coversPath;
-        Globals.FontsPath = fontsPath;
+        var folderOptions = new DomainOptions();
+        folders.Invoke(folderOptions);
+        
+        folderOptions.ValidateAndRegister();
         
         services.AddDbContextFactory<DatabaseContext>(options =>
         {
-            options.UseSqlite($"Data Source={Path.Combine(dbFolder, "BookHeaven.db")}");
+            options.UseSqlite($"Data Source={Path.Combine(folderOptions.DatabasePath, "BookHeaven.db")}");
 #if DEBUG
             options.EnableSensitiveDataLogging();
 #endif
@@ -55,4 +52,29 @@ public static class DependencyInjection
         
         return services;
     } 
+}
+
+public class DomainOptions
+{
+    public string BooksPath { get; set; } = null!;
+    public string CoversPath { get; set; } = null!;
+    public string FontsPath { get; set; } = null!;
+    public string DatabasePath { get; set; } = null!;
+    
+    internal void ValidateAndRegister()
+    {
+        if (string.IsNullOrEmpty(BooksPath)) throw new ArgumentException("BooksPath must be provided");
+        if (string.IsNullOrEmpty(CoversPath)) throw new ArgumentException("CoversPath must be provided");
+        if (string.IsNullOrEmpty(FontsPath)) throw new ArgumentException("FontsPath must be provided");
+        if (string.IsNullOrEmpty(DatabasePath)) throw new ArgumentException("DatabasePath must be provided");
+        
+        Globals.BooksPath = BooksPath;
+        Globals.CoversPath = CoversPath;
+        Globals.FontsPath = FontsPath;
+        
+        Directory.CreateDirectory(BooksPath);
+        Directory.CreateDirectory(CoversPath);
+        Directory.CreateDirectory(FontsPath);
+        Directory.CreateDirectory(DatabasePath);
+    }
 }
