@@ -39,9 +39,9 @@ public static class BookExtensions
     }
     
     [Obsolete("Use EbookPath instead")]
-    public static string EpubPath(this Book book) => Path.Combine(Globals.BooksPath, $"{book.BookId}.epub");
-    public static string EbookPath(this Book book) => Path.Combine(Globals.BooksPath, $"{book.BookId}{book.Format.GetExtension()}");
-    public static string CoverPath(this Book book) => Path.Combine(Globals.CoversPath, $"{book.BookId}.jpg");
+    public static string EpubPath(this Book book) => Path.Combine(DomainGlobals.BooksPath, $"{book.BookId}.epub");
+    public static string EbookPath(this Book book) => Path.Combine(DomainGlobals.BooksPath, $"{book.BookId}{book.Format.GetExtension()}");
+    public static string CoverPath(this Book book) => Path.Combine(DomainGlobals.CoversPath, $"{book.BookId}.jpg");
 
     public static string GetCoverAsBase64(this Book book)
 	{

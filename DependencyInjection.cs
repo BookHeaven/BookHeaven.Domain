@@ -68,9 +68,10 @@ public class DomainOptions
         if (string.IsNullOrEmpty(FontsPath)) throw new ArgumentException("FontsPath must be provided");
         if (string.IsNullOrEmpty(DatabasePath)) throw new ArgumentException("DatabasePath must be provided");
         
-        Globals.BooksPath = BooksPath;
-        Globals.CoversPath = CoversPath;
-        Globals.FontsPath = FontsPath;
+        DomainGlobals.BooksPath = BooksPath;
+        DomainGlobals.CoversPath = CoversPath;
+        DomainGlobals.FontsPath = FontsPath;
+        DomainGlobals.DatabasePath = DatabasePath;
         
         Directory.CreateDirectory(BooksPath);
         Directory.CreateDirectory(CoversPath);
