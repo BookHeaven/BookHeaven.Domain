@@ -16,7 +16,7 @@ public class ProfileSettings
     public Profile Profile { get; set; } = null!;
     
     public decimal FontSize { get; set; } = 16;
-    public decimal LineHeight { get; set; } = 0;
+    public decimal LineHeight { get; set; } = 1.3m;
     public decimal LetterSpacing { get; set; } = 0;
     public decimal WordSpacing { get; set; } = 0;
     public decimal ParagraphSpacing { get; set; } = 10;
