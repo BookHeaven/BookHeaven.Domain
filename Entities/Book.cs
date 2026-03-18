@@ -23,6 +23,8 @@ public partial class Book : EntityExtensions<Book>
     public string? UUID { get; set; }
     public string? Language { get; set; }
     public EbookFormat Format { get; set; } = EbookFormat.Epub;
+    public string FileHash { get; set; } = null!;
+    
     public Author? Author { get; set; }
     public Series? Series { get; set; }
     
@@ -39,6 +41,7 @@ internal class BookConfiguration : IEntityTypeConfiguration<Book>
         builder.HasKey(b => b.BookId);
         builder.Property(b => b.BookId).ValueGeneratedOnAdd();
 
+        builder.HasIndex(b => b.FileHash);
         
         builder
             .Property(b => b.Format)
