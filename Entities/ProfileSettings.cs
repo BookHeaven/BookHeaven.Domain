@@ -1,18 +1,14 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookHeaven.Domain.Entities;
 
 public class ProfileSettings
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid ProfileSettingsId { get; set; }
 
     public Guid ProfileId { get; set; }
     [JsonIgnore]
-    [ForeignKey(nameof(ProfileId))]
     public Profile Profile { get; set; } = null!;
     
     public decimal FontSize { get; set; } = 16;
@@ -26,4 +22,21 @@ public class ProfileSettings
     public decimal PageGap { get; set; } = 50;
     public int SelectedLayout { get; set; } = 0;
     public string SelectedFont { get; set; } = string.Empty;
+}
+
+internal class ProfileSettingsConfig : IEntityTypeConfiguration<ProfileSettings>
+{
+    public void Configure(EntityTypeBuilder<ProfileSettings> builder)
+    {
+        builder.HasKey(ps => ps.ProfileSettingsId);
+        builder.Property(ps => ps.ProfileSettingsId).ValueGeneratedOnAdd();
+        
+        builder.Property(ps => ps.SelectedFont).HasMaxLength(100);
+        
+        builder
+            .HasOne(ps => ps.Profile)
+            .WithOne(p => p.ProfileSettings)
+            .HasForeignKey<ProfileSettings>(ps => ps.ProfileId)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
 }

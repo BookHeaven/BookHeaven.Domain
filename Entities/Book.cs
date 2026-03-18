@@ -3,21 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using BookHeaven.Domain.Enums;
 using BookHeaven.Domain.Extensions;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookHeaven.Domain.Entities;
 
 public partial class Book : EntityExtensions<Book>
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid BookId { get; set; }
     public string? Title { get; set; }
     public Guid? AuthorId { get; set; }
-    [ForeignKey(nameof(AuthorId))]
-    public Author? Author { get; set; }
     public Guid? SeriesId { get; set; }
-    [ForeignKey(nameof(SeriesId))]
-    public Series? Series { get; set; }
     public decimal? SeriesIndex { get; set; }
     public string? Publisher { get; set; }
     public DateTime? PublishedDate { get; set; }
@@ -28,10 +23,44 @@ public partial class Book : EntityExtensions<Book>
     public string? UUID { get; set; }
     public string? Language { get; set; }
     public EbookFormat Format { get; set; } = EbookFormat.Epub;
+    public Author? Author { get; set; }
+    public Series? Series { get; set; }
     
     public virtual List<Tag> Tags { get; set; } = [];
 
     [JsonIgnore]
-    [InverseProperty(nameof(BookProgress.Book))]
     public virtual List<BookProgress> Progresses { get; set; } = [];
+}
+
+internal class BookConfiguration : IEntityTypeConfiguration<Book>
+{
+    public void Configure(EntityTypeBuilder<Book> builder)
+    {
+        builder.HasKey(b => b.BookId);
+        builder.Property(b => b.BookId).ValueGeneratedOnAdd();
+
+        
+        builder
+            .Property(b => b.Format)
+            .HasDefaultValue(EbookFormat.Epub)
+            .HasSentinel(EbookFormat.None);
+        
+        builder
+            .HasOne(b => b.Author)
+            .WithMany(a => a.Books)
+            .HasForeignKey(b => b.AuthorId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        builder
+            .HasOne(b => b.Series)
+            .WithMany(s => s.Books)
+            .HasForeignKey(b => b.SeriesId)
+            .OnDelete(DeleteBehavior.SetNull);
+        
+        builder
+            .HasMany(b => b.Tags)
+            .WithMany();
+        
+        
+    }
 }
