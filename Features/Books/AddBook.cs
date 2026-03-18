@@ -17,7 +17,6 @@ public static class AddBook
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             
-            
             await context.Books.AddAsync(request.Book, cancellationToken);
             
             if(request.Book.Author is not null && context.Authors.Any(a => a.AuthorId == request.Book.Author.AuthorId))
