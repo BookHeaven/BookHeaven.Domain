@@ -16,7 +16,7 @@ public static class BookExtensions
             return BookStatus.Finished;
         }
         
-        if (book.Progress().ElapsedTime != TimeSpan.Zero)
+        if (book.Progress().ElapsedTime != TimeSpan.Zero || book.Progress().Progress > 0)
         {
             return BookStatus.Reading;
         }
