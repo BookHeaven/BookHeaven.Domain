@@ -16,6 +16,11 @@ public static class UpdateBookProgress
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 
+
+            if (request.BookProgress.Progress > 100)
+            {
+                request.BookProgress.Progress = 100;
+            }
             context.BooksProgress.Update(request.BookProgress);
 
             try
