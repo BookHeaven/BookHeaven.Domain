@@ -33,9 +33,9 @@ public static class GetBook
                 .Include(b => b.Tags)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync(x => 
-                    (request.BookId == null || x.BookId == request.BookId) || 
-                    (string.IsNullOrEmpty(request.Title) || x.Title == request.Title) ||
-                    (string.IsNullOrEmpty(request.Hash) || x.FileHash == request.Hash)
+                    (request.BookId != null && x.BookId == request.BookId) || 
+                    (!string.IsNullOrEmpty(request.Title) && x.Title == request.Title) ||
+                    (!string.IsNullOrEmpty(request.Hash) && x.FileHash == request.Hash)
                     , cancellationToken);
 
             return book != null ? book : new Error("Book not found");
