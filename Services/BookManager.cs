@@ -50,7 +50,7 @@ public class BookManager(
 
     public async Task AppendBookAsync(Guid profileId, Guid bookId)
     {
-        var getBook = await sender.Send(new GetBook.Query(bookId));
+        var getBook = await sender.Send(new GetBook.Query {BookId = bookId});
         if(getBook.IsFailure) return;
         
         var getProgress = await sender.Send(new GetBookProgressByProfile.Query(bookId,profileId));
