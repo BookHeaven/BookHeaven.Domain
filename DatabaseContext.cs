@@ -20,6 +20,7 @@ public partial class DatabaseContext(DbContextOptions<DatabaseContext> options) 
     public DbSet<Font> Fonts { get; set; }
     public DbSet<Tag> Tags { get; set; }
     public DbSet<Collection> Collections { get; set; }
+    public DbSet<KoreaderProgress> KoreaderProgress { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
