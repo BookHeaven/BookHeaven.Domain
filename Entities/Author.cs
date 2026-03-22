@@ -1,12 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using BookHeaven.Domain.Entities.Base;
 using BookHeaven.Domain.Extensions;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookHeaven.Domain.Entities;
 
-public partial class Author : EntityExtensions<Author>
+public partial class Author : BaseEntity
 {
     public Guid AuthorId { get; set; }
     public string? Name { get; set; }
@@ -16,10 +17,11 @@ public partial class Author : EntityExtensions<Author>
     public List<Book> Books { get; set; } = [];
 }
 
-internal class AuthorConfig : IEntityTypeConfiguration<Author>
+internal class AuthorConfig : BaseEntityConfig<Author>
 {
-    public void Configure(EntityTypeBuilder<Author> builder)
+    public override void Configure(EntityTypeBuilder<Author> builder)
     {
+        base.Configure(builder);
         builder.HasKey(a => a.AuthorId);
         builder.Property(a => a.AuthorId).ValueGeneratedOnAdd();
         

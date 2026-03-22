@@ -1,13 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using BookHeaven.Domain.Entities.Base;
 using BookHeaven.Domain.Enums;
 using BookHeaven.Domain.Extensions;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookHeaven.Domain.Entities;
 
-public partial class Book : EntityExtensions<Book>
+public partial class Book : BaseEntity
 {
     public Guid BookId { get; set; }
     public string? Title { get; set; }
@@ -34,10 +35,11 @@ public partial class Book : EntityExtensions<Book>
     public virtual List<BookProgress> Progresses { get; set; } = [];
 }
 
-internal class BookConfiguration : IEntityTypeConfiguration<Book>
+internal class BookConfig : BaseEntityConfig<Book>
 {
-    public void Configure(EntityTypeBuilder<Book> builder)
+    public override void Configure(EntityTypeBuilder<Book> builder)
     {
+        base.Configure(builder);
         builder.HasKey(b => b.BookId);
         builder.Property(b => b.BookId).ValueGeneratedOnAdd();
 
@@ -63,7 +65,5 @@ internal class BookConfiguration : IEntityTypeConfiguration<Book>
         builder
             .HasMany(b => b.Tags)
             .WithMany();
-        
-        
     }
 }

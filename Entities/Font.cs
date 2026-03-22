@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using BookHeaven.Domain.Entities.Base;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookHeaven.Domain.Entities;
 
-public class Font
+public class Font : BaseEntity
 {
     public string Family { get; set; } = null!;
     public string Style { get; set; } = string.Empty;
@@ -10,10 +11,11 @@ public class Font
     public string FileName { get; set; } = null!;
 }
 
-internal class FontConfig : IEntityTypeConfiguration<Font>
+internal class FontConfig : BaseEntityConfig<Font>
 {
-    public void Configure(EntityTypeBuilder<Font> builder)
+    public override void Configure(EntityTypeBuilder<Font> builder)
     {
+        base.Configure(builder);
         builder.HasKey(f => new { f.Family, f.Style, f.Weight });
         
         builder.Property(f => f.Family).IsRequired().HasMaxLength(100);

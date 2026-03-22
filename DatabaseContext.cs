@@ -1,10 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using BookHeaven.Domain.Entities;
 using BookHeaven.Domain.Entities.Base;
-using BookHeaven.Domain.Enums;
-using System.Text.Json;
-using BookHeaven.Domain.Entities.Utilities;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 
 namespace BookHeaven.Domain;
@@ -24,6 +19,22 @@ public partial class DatabaseContext(DbContextOptions<DatabaseContext> options) 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(DatabaseContext).Assembly);
+    }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
+    {
+        var now = DateTimeOffset.Now;
+        
+        foreach (var entry in ChangeTracker.Entries().Where(e => e.Entity is BaseEntity))
+        {
+            if(entry is { Entity: BaseEntity entity, State: EntityState.Added or EntityState.Modified })
+            {
+                entity.UpdatedAt = now;
+            }
+        }
+        
+        return await base.SaveChangesAsync(cancellationToken);
     }
 }
