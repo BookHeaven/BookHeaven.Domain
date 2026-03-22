@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookHeaven.Domain.Entities;
 
-public partial class BookProgress : EntityExtensions<BookProgress>
+public partial class BookProgress
 {
     public Guid BookProgressId { get; set; }
 

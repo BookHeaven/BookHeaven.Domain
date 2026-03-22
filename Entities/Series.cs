@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookHeaven.Domain.Entities;
 
-public partial class Series : EntityExtensions<Series>
+public partial class Series
 {
     public Guid SeriesId { get; set; }
     public string? Name { get; set; }
