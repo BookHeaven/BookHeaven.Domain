@@ -5,4 +5,4 @@ Whether you want to make your own server implementation or client, you'll want t
 Unless, of course, you either don't want or can't go the .Net route.
 
 ## :package: Credits
-- MediatR (https://mediatr.io/)
+- Mediator (https://github.com/martinothamar/Mediator)
