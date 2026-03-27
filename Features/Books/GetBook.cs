@@ -7,7 +7,7 @@ namespace BookHeaven.Domain.Features.Books;
 
 public static class GetBook
 {
-    public sealed record Query : ICustomQuery<Book>
+    public sealed record Query : IQuery<Book>
     {
         public Guid? BookId { get; init; }
         public string? Title { get; init; }
@@ -16,7 +16,7 @@ public static class GetBook
         public bool IsEmpty => BookId is null && string.IsNullOrEmpty(Title) && string.IsNullOrEmpty(Hash);
     }
 
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomQueryHandler<Query, Book>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, Book>
     {
         public async Task<Result<Book>> Handle(Query request, CancellationToken cancellationToken)
         {

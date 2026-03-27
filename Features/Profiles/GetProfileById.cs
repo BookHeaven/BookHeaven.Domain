@@ -7,9 +7,9 @@ namespace BookHeaven.Domain.Features.Profiles;
 
 public static class GetProfileById
 {
-    public sealed record Query(Guid Id) : ICustomQuery<Profile>;
+    public sealed record Query(Guid Id) : IQuery<Profile>;
     
-    internal sealed class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomQueryHandler<Query, Profile>
+    internal sealed class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, Profile>
     {
         public async Task<Result<Profile>> Handle(Query request, CancellationToken cancellationToken)
         {

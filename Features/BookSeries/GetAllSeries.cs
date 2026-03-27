@@ -3,9 +3,9 @@
 namespace BookHeaven.Domain.Features.BookSeries;
 
 public static class GetAllSeries{
-    public sealed record Query(bool IncludeBooks = false) : ICustomQuery<List<Series>>;
+    public sealed record Query(bool IncludeBooks = false) : IQuery<List<Series>>;
 
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomQueryHandler<Query, List<Series>>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, List<Series>>
     {
         public async Task<Result<List<Series>>> Handle(Query request, CancellationToken cancellationToken)
         {
