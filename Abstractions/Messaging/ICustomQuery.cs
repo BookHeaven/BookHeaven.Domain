@@ -3,6 +3,6 @@ using MediatR;
 
 namespace BookHeaven.Domain.Abstractions.Messaging;
 
-public interface IQuery<TResponse> : IRequest<Result<TResponse>>
+public interface ICustomQuery<TResponse> : IRequest<Result<TResponse>>
 {
 }

@@ -8,10 +8,10 @@ namespace BookHeaven.Domain.Features.Authors;
 
 public static class GetAllAuthors
 {
-    public sealed record Query(bool IncludeBooks = false) : IQuery<List<Author>>;
+    public sealed record Query(bool IncludeBooks = false) : ICustomQuery<List<Author>>;
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory)
-        : IQueryHandler<Query, List<Author>>
+        : ICustomQueryHandler<Query, List<Author>>
     {
         public async Task<Result<List<Author>>> Handle(Query request, CancellationToken cancellationToken)
         {

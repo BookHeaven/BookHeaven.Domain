@@ -2,9 +2,9 @@
 
 public static class GetKoreaderProgress
 {
-    public sealed record Query(Guid ProfileId, string DocumentHash) : IQuery<Entities.KoreaderProgress>;
+    public sealed record Query(Guid ProfileId, string DocumentHash) : ICustomQuery<Entities.KoreaderProgress>;
     
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, Entities.KoreaderProgress>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomQueryHandler<Query, Entities.KoreaderProgress>
     {
         public async Task<Result<Entities.KoreaderProgress>> Handle(Query request, CancellationToken cancellationToken)
         {

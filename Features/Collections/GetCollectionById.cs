@@ -4,9 +4,9 @@ namespace BookHeaven.Domain.Features.Collections;
 
 public static class GetCollectionById
 {
-    public sealed record Query(Guid CollectionId) : IQuery<Collection>;
+    public sealed record Query(Guid CollectionId) : ICustomQuery<Collection>;
 
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, Collection>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomQueryHandler<Query, Collection>
     {
         public async Task<Result<Collection>> Handle(Query request, CancellationToken cancellationToken)
         {

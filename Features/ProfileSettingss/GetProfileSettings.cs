@@ -9,11 +9,11 @@ namespace BookHeaven.Domain.Features.ProfileSettingss;
 public static class GetProfileSettings
 {
     
-    public sealed record Query(Guid ProfileId) : IQuery<ProfileSettings>;
+    public sealed record Query(Guid ProfileId) : ICustomQuery<ProfileSettings>;
 
     internal class QueryHandler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        ILogger<QueryHandler> logger) : IQueryHandler<Query, ProfileSettings>
+        ILogger<QueryHandler> logger) : ICustomQueryHandler<Query, ProfileSettings>
     {
         public async Task<Result<ProfileSettings>> Handle(Query request, CancellationToken cancellationToken)
         {

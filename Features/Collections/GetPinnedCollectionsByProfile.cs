@@ -4,9 +4,9 @@ namespace BookHeaven.Domain.Features.Collections;
 
 public static class GetPinnedCollectionsByProfile
 {
-    public sealed record Query(Guid ProfileId) : IQuery<List<Collection>>;
+    public sealed record Query(Guid ProfileId) : ICustomQuery<List<Collection>>;
     
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, List<Collection>>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomQueryHandler<Query, List<Collection>>
     {
         public async Task<Result<List<Collection>>> Handle(Query request, CancellationToken cancellationToken)
         {

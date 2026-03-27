@@ -7,9 +7,9 @@ namespace BookHeaven.Domain.Features.BooksProgress;
 
 public static class GetAllBooksProgressByProfile
 {
-    public sealed record Query(Guid ProfileId) : IQuery<List<BookProgress>>;
+    public sealed record Query(Guid ProfileId) : ICustomQuery<List<BookProgress>>;
 
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, List<BookProgress>>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomQueryHandler<Query, List<BookProgress>>
     {
         public async Task<Result<List<BookProgress>>> Handle(Query request, CancellationToken cancellationToken)
         {

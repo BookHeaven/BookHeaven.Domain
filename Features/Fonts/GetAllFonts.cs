@@ -8,11 +8,11 @@ namespace BookHeaven.Domain.Features.Fonts;
 
 public static class GetAllFonts
 {
-    public sealed record Query(string? FamilyName = null) : IQuery<List<Font>>;
+    public sealed record Query(string? FamilyName = null) : ICustomQuery<List<Font>>;
 
     internal class QueryHandler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        ILogger<QueryHandler> logger) : IQueryHandler<Query, List<Font>>
+        ILogger<QueryHandler> logger) : ICustomQueryHandler<Query, List<Font>>
     {
         public async Task<Result<List<Font>>> Handle(Query request, CancellationToken cancellationToken)
         {

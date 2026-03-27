@@ -8,10 +8,10 @@ namespace BookHeaven.Domain.Features.Profiles;
 
 public static class GetAllProfiles
 {
-    public sealed record Query(bool IncludeSettings = false) : IQuery<List<Profile>>;
+    public sealed record Query(bool IncludeSettings = false) : ICustomQuery<List<Profile>>;
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory)
-        : IQueryHandler<Query, List<Profile>>
+        : ICustomQueryHandler<Query, List<Profile>>
     {
         public async Task<Result<List<Profile>>> Handle(Query request, CancellationToken cancellationToken)
         {

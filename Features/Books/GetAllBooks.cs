@@ -9,11 +9,11 @@ namespace BookHeaven.Domain.Features.Books;
 
 public static class GetAllBooks
 {
-    public sealed record Query(Guid? ProfileId = null, string? Filter = null) : IQuery<List<Book>>;
+    public sealed record Query(Guid? ProfileId = null, string? Filter = null) : ICustomQuery<List<Book>>;
 
     internal class Handler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        ILogger<Handler> logger) : IQueryHandler<Query, List<Book>>
+        ILogger<Handler> logger) : ICustomQueryHandler<Query, List<Book>>
     {
         public async Task<Result<List<Book>>> Handle(Query request, CancellationToken cancellationToken)
         {

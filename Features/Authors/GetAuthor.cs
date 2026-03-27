@@ -15,9 +15,9 @@ public static class GetAuthor
         public bool IncludeBooks { get; init; }
     }
 
-    public sealed record Query(Filter Request): IQuery<Author>;
+    public sealed record Query(Filter Request): ICustomQuery<Author>;
 
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, Author>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomQueryHandler<Query, Author>
     {
         public async Task<Result<Author>> Handle(Query query, CancellationToken cancellationToken)
         {
