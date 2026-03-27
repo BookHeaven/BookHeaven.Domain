@@ -10,7 +10,7 @@ public static class DeleteSeries
         ILogger<Handler> logger,
         IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command>
     {
-        public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             var series = await dbContext.Series

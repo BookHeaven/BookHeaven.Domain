@@ -7,7 +7,7 @@ public static class GetSeries {
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, Series>
     {
-        public async Task<Result<Series>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Series>> Handle(Query request, CancellationToken cancellationToken)
         {
             if(request.SeriesId == null && request.Name == null)
             {

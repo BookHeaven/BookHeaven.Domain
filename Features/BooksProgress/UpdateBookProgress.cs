@@ -1,8 +1,4 @@
-﻿using BookHeaven.Domain.Abstractions.Messaging;
-using BookHeaven.Domain.Entities;
-using BookHeaven.Domain.Shared;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using BookHeaven.Domain.Entities;
 
 namespace BookHeaven.Domain.Features.BooksProgress;
 
@@ -12,7 +8,7 @@ public static class UpdateBookProgress
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command>
     {
-        public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

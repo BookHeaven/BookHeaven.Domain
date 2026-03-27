@@ -11,7 +11,7 @@ public static class UpdateCollectionPinned
         GlobalEventsService eventsService) : ICommandHandler<Command>
     {
 
-        public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

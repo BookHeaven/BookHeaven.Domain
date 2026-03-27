@@ -10,7 +10,7 @@ public static class DeleteAuthor
         IDbContextFactory<DatabaseContext> dbContextFactory,
         ILogger<Handler> logger) : ICommandHandler<Command>
     {
-        public async Task<Result> Handle(Command command, CancellationToken cancellationToken = default)
+        public async ValueTask<Result> Handle(Command command, CancellationToken cancellationToken = default)
         {
             await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             var author = await dbContext.Authors

@@ -40,11 +40,11 @@ public static class DependencyInjection
                 context.Database.Migrate();
             }
         }
-        
-        services.AddMediatR(config =>
+
+        services.AddMediator(config =>
         {
-            config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
-            config.AddOpenBehavior(typeof(LoggingPipelineBehavior<,>));
+            config.Assemblies = [typeof(DependencyInjection).Assembly];
+            config.GenerateTypesAsInternal = true;
         });
 
         services.AddSingleton<GlobalEventsService>();

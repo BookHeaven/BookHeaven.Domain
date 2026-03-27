@@ -8,7 +8,7 @@ public static class GetCollectionById
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, Collection>
     {
-        public async Task<Result<Collection>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Collection>> Handle(Query request, CancellationToken cancellationToken)
         {
             await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

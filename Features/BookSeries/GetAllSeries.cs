@@ -7,7 +7,7 @@ public static class GetAllSeries{
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, List<Series>>
     {
-        public async Task<Result<List<Series>>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<List<Series>>> Handle(Query request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
         

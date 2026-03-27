@@ -6,7 +6,7 @@ public static class SaveKoreaderProgress
     
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command>
     {
-        public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             

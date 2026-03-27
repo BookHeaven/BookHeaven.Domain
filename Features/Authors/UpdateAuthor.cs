@@ -11,7 +11,7 @@ public static class UpdateAuthor
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command, Author>
     {
-        public async Task<Result<Author>> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Author>> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             

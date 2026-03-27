@@ -11,7 +11,7 @@ public static class GetProfileById
     
     internal sealed class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, Profile>
     {
-        public async Task<Result<Profile>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Profile>> Handle(Query request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

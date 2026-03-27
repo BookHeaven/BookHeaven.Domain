@@ -15,7 +15,7 @@ public static class AddCollection
         IDbContextFactory<DatabaseContext> dbContextFactory,
         GlobalEventsService eventsService) : ICommandHandler<Command, Guid>
     {
-        public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             

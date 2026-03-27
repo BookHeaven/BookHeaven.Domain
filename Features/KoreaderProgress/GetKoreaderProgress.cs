@@ -6,7 +6,7 @@ public static class GetKoreaderProgress
     
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, Entities.KoreaderProgress>
     {
-        public async Task<Result<Entities.KoreaderProgress>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Entities.KoreaderProgress>> Handle(Query request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             

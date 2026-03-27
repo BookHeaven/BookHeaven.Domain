@@ -1,8 +1,4 @@
-﻿using BookHeaven.Domain.Abstractions.Messaging;
-using BookHeaven.Domain.Entities;
-using BookHeaven.Domain.Shared;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using BookHeaven.Domain.Entities;
 using Microsoft.Extensions.Logging;
 
 namespace BookHeaven.Domain.Features.Books;
@@ -15,7 +11,7 @@ public static class GetAllBooks
         IDbContextFactory<DatabaseContext> dbContextFactory,
         ILogger<Handler> logger) : IQueryHandler<Query, List<Book>>
     {
-        public async Task<Result<List<Book>>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<List<Book>>> Handle(Query request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

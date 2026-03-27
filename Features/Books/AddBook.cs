@@ -13,7 +13,7 @@ public static class AddBook
         IDbContextFactory<DatabaseContext> dbContextFactory,
         GlobalEventsService globalEventsService) : ICommandHandler<Command, Guid>
     {
-        public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             

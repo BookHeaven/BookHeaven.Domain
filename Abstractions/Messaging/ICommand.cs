@@ -1,5 +1,4 @@
-﻿using BookHeaven.Domain.Shared;
-using MediatR;
+﻿using Mediator;
 
 namespace BookHeaven.Domain.Abstractions.Messaging;
 

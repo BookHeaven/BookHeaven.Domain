@@ -11,7 +11,7 @@ public static class AddProfile
     
     internal class CommandHandler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command, Profile>
     {
-        public async Task<Result<Profile>> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Profile>> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

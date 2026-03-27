@@ -1,8 +1,4 @@
-﻿using BookHeaven.Domain.Abstractions.Messaging;
-using BookHeaven.Domain.Entities;
-using BookHeaven.Domain.Shared;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using BookHeaven.Domain.Entities;
 
 namespace BookHeaven.Domain.Features.Authors;
 
@@ -13,7 +9,7 @@ public static class GetAllAuthors
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory)
         : IQueryHandler<Query, List<Author>>
     {
-        public async Task<Result<List<Author>>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<List<Author>>> Handle(Query request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

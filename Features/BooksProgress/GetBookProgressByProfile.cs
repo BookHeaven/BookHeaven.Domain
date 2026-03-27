@@ -11,7 +11,7 @@ public static class GetBookProgressByProfile
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, BookProgress>
     {
-        public async Task<Result<BookProgress>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<BookProgress>> Handle(Query request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

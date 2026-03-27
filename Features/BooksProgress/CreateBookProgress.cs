@@ -11,7 +11,7 @@ public static class CreateBookProgress
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command, Guid>
     {
-        public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

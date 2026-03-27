@@ -7,7 +7,7 @@ public static class UpdateSeries {
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command, Series>
     {
-        public async Task<Result<Series>> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Series>> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

@@ -5,8 +5,7 @@ using BookHeaven.Domain.Extensions;
 using BookHeaven.Domain.Features.Books;
 using BookHeaven.Domain.Features.BooksProgress;
 using BookHeaven.Domain.Localization;
-using BookHeaven.Domain.Shared;
-using MediatR;
+using Mediator;
 
 namespace BookHeaven.Domain.Services;
 

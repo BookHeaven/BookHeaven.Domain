@@ -15,7 +15,7 @@ public static class GetProfileSettings
         IDbContextFactory<DatabaseContext> dbContextFactory,
         ILogger<QueryHandler> logger) : IQueryHandler<Query, ProfileSettings>
     {
-        public async Task<Result<ProfileSettings>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<ProfileSettings>> Handle(Query request, CancellationToken cancellationToken)
         {
             try
             {

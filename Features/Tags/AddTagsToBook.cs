@@ -16,7 +16,7 @@ public static class AddTagsToBook
         IDbContextFactory<DatabaseContext> dbContextFactory,
         ILogger<CommandHandler> logger) : ICommandHandler<Command, List<Tag>>
     {
-        public async Task<Result<List<Tag>>> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result<List<Tag>>> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             var book = await context.Books.Include(b => b.Tags).FirstOrDefaultAsync(b => b.BookId == request.BookId, cancellationToken);

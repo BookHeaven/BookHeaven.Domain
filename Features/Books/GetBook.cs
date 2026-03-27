@@ -18,7 +18,7 @@ public static class GetBook
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, Book>
     {
-        public async Task<Result<Book>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Book>> Handle(Query request, CancellationToken cancellationToken)
         {
             if(request.IsEmpty)
             {

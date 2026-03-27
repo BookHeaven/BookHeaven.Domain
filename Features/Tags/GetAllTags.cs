@@ -8,7 +8,7 @@ public static class GetAllTags
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, List<Tag>>
     {
-        public async Task<Result<List<Tag>>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<List<Tag>>> Handle(Query request, CancellationToken cancellationToken)
         {
             await using var dbContext = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

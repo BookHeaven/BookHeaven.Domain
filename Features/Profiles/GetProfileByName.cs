@@ -8,7 +8,7 @@ public static class GetProfileByName
     
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, Profile>
     {
-        public async Task<Result<Profile>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Profile>> Handle(Query request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             var profile = await context.Profiles.FirstOrDefaultAsync(p => p.Name == request.Name, cancellationToken: cancellationToken);

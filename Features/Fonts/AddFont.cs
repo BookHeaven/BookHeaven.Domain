@@ -14,7 +14,7 @@ public static class AddFont
         IDbContextFactory<DatabaseContext> dbContextFactory,
         ILogger<CommandHandler> logger) : ICommandHandler<Command, Font>
     {
-        public async Task<Result<Font>> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Font>> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             

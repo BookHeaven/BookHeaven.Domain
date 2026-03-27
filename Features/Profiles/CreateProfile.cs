@@ -14,7 +14,7 @@ public static class CreateProfile
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command, Response>
     {
 
-        public async Task<Result<Response>> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result<Response>> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
 

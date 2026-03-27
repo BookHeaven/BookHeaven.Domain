@@ -14,7 +14,7 @@ public static class GetAllFonts
         IDbContextFactory<DatabaseContext> dbContextFactory,
         ILogger<QueryHandler> logger) : IQueryHandler<Query, List<Font>>
     {
-        public async Task<Result<List<Font>>> Handle(Query request, CancellationToken cancellationToken)
+        public async ValueTask<Result<List<Font>>> Handle(Query request, CancellationToken cancellationToken)
         {
             try
             {

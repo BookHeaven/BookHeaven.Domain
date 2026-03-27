@@ -13,7 +13,7 @@ public static class RemoveTagsFromBook
         IDbContextFactory<DatabaseContext> dbContextFactory,
         ILogger<CommandHandler> logger) : ICommandHandler<Command>
     {
-        public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
+        public async ValueTask<Result> Handle(Command request, CancellationToken cancellationToken)
         {
             await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
             

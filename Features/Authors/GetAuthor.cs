@@ -19,7 +19,7 @@ public static class GetAuthor
 
     internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : IQueryHandler<Query, Author>
     {
-        public async Task<Result<Author>> Handle(Query query, CancellationToken cancellationToken)
+        public async ValueTask<Result<Author>> Handle(Query query, CancellationToken cancellationToken)
         {
             if(query.Request.AuthorId == null && query.Request.Name == null)
             {
