@@ -8,9 +8,9 @@ namespace BookHeaven.Domain.Features.Books;
 
 public static class UpdateBook
 {
-    public sealed record Command(Book Book, string? CoverSourcePath, string? EpubSourcePath) : ICustomCommand;
+    public sealed record Command(Book Book, string? CoverSourcePath, string? EpubSourcePath) : ICommand;
 
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomCommandHandler<Command>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command>
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {

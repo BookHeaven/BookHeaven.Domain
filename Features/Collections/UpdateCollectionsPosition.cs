@@ -5,11 +5,11 @@ namespace BookHeaven.Domain.Features.Collections;
 
 public static class UpdateCollectionsPosition
 {
-    public sealed record Command(List<(Guid, int)> CollectionPositions) : ICustomCommand;
+    public sealed record Command(List<(Guid, int)> CollectionPositions) : ICommand;
     
     public sealed class Handler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        GlobalEventsService globalEventsService) : ICustomCommandHandler<Command>
+        GlobalEventsService globalEventsService) : ICommandHandler<Command>
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {

@@ -9,11 +9,11 @@ namespace BookHeaven.Domain.Features.Collections;
 
 public static class AddCollection
 {
-    public sealed record Command(Collection Collection) : ICustomCommand<Guid>;
+    public sealed record Command(Collection Collection) : ICommand<Guid>;
     
     internal class Handler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        GlobalEventsService eventsService) : ICustomCommandHandler<Command, Guid>
+        GlobalEventsService eventsService) : ICommandHandler<Command, Guid>
     {
         public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
         {

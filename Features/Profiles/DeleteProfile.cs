@@ -6,9 +6,9 @@ namespace BookHeaven.Domain.Features.Profiles;
 
 public static class DeleteProfile
 {
-    public sealed record Command(Guid Id) : ICustomCommand;
+    public sealed record Command(Guid Id) : ICommand;
     
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomCommandHandler<Command>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command>
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {

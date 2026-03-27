@@ -10,12 +10,12 @@ namespace BookHeaven.Domain.Features.Books;
 
 public static class DeleteBook
 {
-    public sealed record Command(Guid BookId) : ICustomCommand;
+    public sealed record Command(Guid BookId) : ICommand;
 
     internal class CommandHandler(
         ILogger<CommandHandler> logger,
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        GlobalEventsService globalEventsService) : ICustomCommandHandler<Command>
+        GlobalEventsService globalEventsService) : ICommandHandler<Command>
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {

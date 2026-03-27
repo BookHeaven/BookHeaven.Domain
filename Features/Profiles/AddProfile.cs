@@ -7,9 +7,9 @@ namespace BookHeaven.Domain.Features.Profiles;
 
 public static class AddProfile
 {
-    public sealed record Command(Profile Profile) : ICustomCommand<Profile>;
+    public sealed record Command(Profile Profile) : ICommand<Profile>;
     
-    internal class CommandHandler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomCommandHandler<Command, Profile>
+    internal class CommandHandler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command, Profile>
     {
         public async Task<Result<Profile>> Handle(Command request, CancellationToken cancellationToken)
         {

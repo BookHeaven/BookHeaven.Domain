@@ -7,11 +7,11 @@ namespace BookHeaven.Domain.Features.Fonts;
 
 public static class DeleteFont
 {
-    public sealed record Command(string FamilyName) : ICustomCommand;
+    public sealed record Command(string FamilyName) : ICommand;
     
     internal class Handler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        ILogger<Handler> logger) : ICustomCommandHandler<Command>
+        ILogger<Handler> logger) : ICommandHandler<Command>
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {

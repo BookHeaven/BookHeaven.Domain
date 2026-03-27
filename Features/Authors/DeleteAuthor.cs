@@ -4,11 +4,11 @@ namespace BookHeaven.Domain.Features.Authors;
 
 public static class DeleteAuthor
 {
-    public sealed record Command(Guid AuthorId) : ICustomCommand;
+    public sealed record Command(Guid AuthorId) : ICommand;
     
     internal class Handler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        ILogger<Handler> logger) : ICustomCommandHandler<Command>
+        ILogger<Handler> logger) : ICommandHandler<Command>
     {
         public async Task<Result> Handle(Command command, CancellationToken cancellationToken = default)
         {

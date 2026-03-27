@@ -10,11 +10,11 @@ public static class AddTagsToBook
     /// </summary>
     /// <param name="Names">Comma separated list of tags</param>
     /// <param name="BookId">Id of the book</param>
-    public sealed record Command(string Names, Guid BookId) : ICustomCommand<List<Tag>>;
+    public sealed record Command(string Names, Guid BookId) : ICommand<List<Tag>>;
     
     internal class CommandHandler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        ILogger<CommandHandler> logger) : ICustomCommandHandler<Command, List<Tag>>
+        ILogger<CommandHandler> logger) : ICommandHandler<Command, List<Tag>>
     {
         public async Task<Result<List<Tag>>> Handle(Command request, CancellationToken cancellationToken)
         {

@@ -7,9 +7,9 @@ namespace BookHeaven.Domain.Features.Authors;
 
 public static class CreateAuthor
 {
-    public sealed record Command(string Name) : ICustomCommand<Author>;
+    public sealed record Command(string Name) : ICommand<Author>;
 
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomCommandHandler<Command, Author>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command, Author>
     {
         public async Task<Result<Author>> Handle(Command request, CancellationToken cancellationToken)
         {

@@ -6,11 +6,11 @@ namespace BookHeaven.Domain.Features.Collections;
 
 public static class UpdateCollection
 {
-    public sealed record Command(Collection Collection) : ICustomCommand;
+    public sealed record Command(Collection Collection) : ICommand;
     
     internal sealed class Handler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        GlobalEventsService eventsService) : ICustomCommandHandler<Command>
+        GlobalEventsService eventsService) : ICommandHandler<Command>
     {
 
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)

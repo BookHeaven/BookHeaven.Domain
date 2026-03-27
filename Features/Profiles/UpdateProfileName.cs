@@ -6,9 +6,9 @@ namespace BookHeaven.Domain.Features.Profiles;
 
 public static class UpdateProfileName
 {
-    public sealed record Command(Guid Id, string Name) : ICustomCommand;
+    public sealed record Command(Guid Id, string Name) : ICommand;
     
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomCommandHandler<Command>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command>
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {

@@ -7,9 +7,9 @@ namespace BookHeaven.Domain.Features.BooksProgress;
 
 public static class CreateBookProgress
 {
-    public sealed record Command(Guid BookId, Guid ProfileId) : ICustomCommand<Guid>;
+    public sealed record Command(Guid BookId, Guid ProfileId) : ICommand<Guid>;
 
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomCommandHandler<Command, Guid>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command, Guid>
     {
         public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
         {

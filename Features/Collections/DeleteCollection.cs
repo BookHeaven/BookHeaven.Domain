@@ -5,11 +5,11 @@ namespace BookHeaven.Domain.Features.Collections;
 
 public static class DeleteCollection
 {
-    public sealed record Command(Guid CollectionId) : ICustomCommand;
+    public sealed record Command(Guid CollectionId) : ICommand;
 
     public sealed class Handler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        GlobalEventsService globalEventsService) : ICustomCommandHandler<Command>
+        GlobalEventsService globalEventsService) : ICommandHandler<Command>
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {

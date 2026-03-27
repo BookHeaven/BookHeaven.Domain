@@ -7,11 +7,11 @@ namespace BookHeaven.Domain.Features.Books;
 
 public static class AddBook
 {
-    public sealed record Command(Book Book, string CoverPath, string EpubPath, bool InitializeProgress = true) : ICustomCommand<Guid>;
+    public sealed record Command(Book Book, string CoverPath, string EpubPath, bool InitializeProgress = true) : ICommand<Guid>;
 
     internal class CommandHandler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        GlobalEventsService globalEventsService) : ICustomCommandHandler<Command, Guid>
+        GlobalEventsService globalEventsService) : ICommandHandler<Command, Guid>
     {
         public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
         {

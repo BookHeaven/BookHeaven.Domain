@@ -8,11 +8,11 @@ namespace BookHeaven.Domain.Features.Fonts;
 
 public static class AddFont
 {
-    public sealed record Command(Font Font) : ICustomCommand<Font>;
+    public sealed record Command(Font Font) : ICommand<Font>;
     
     internal class CommandHandler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        ILogger<CommandHandler> logger) : ICustomCommandHandler<Command, Font>
+        ILogger<CommandHandler> logger) : ICommandHandler<Command, Font>
     {
         public async Task<Result<Font>> Handle(Command request, CancellationToken cancellationToken)
         {
