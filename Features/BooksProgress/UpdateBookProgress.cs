@@ -8,9 +8,9 @@ namespace BookHeaven.Domain.Features.BooksProgress;
 
 public static class UpdateBookProgress
 {
-    public sealed record Command(BookProgress BookProgress) : ICommand;
+    public sealed record Command(BookProgress BookProgress) : ICustomCommand;
 
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomCommandHandler<Command>
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {

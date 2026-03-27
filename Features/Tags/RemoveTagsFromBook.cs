@@ -7,11 +7,11 @@ namespace BookHeaven.Domain.Features.Tags;
 
 public static class RemoveTagsFromBook
 {
-    public sealed record Command(IEnumerable<Guid> TagIds, Guid BookId) : ICommand;
+    public sealed record Command(IEnumerable<Guid> TagIds, Guid BookId) : ICustomCommand;
     
     internal class CommandHandler(
         IDbContextFactory<DatabaseContext> dbContextFactory,
-        ILogger<CommandHandler> logger) : ICommandHandler<Command>
+        ILogger<CommandHandler> logger) : ICustomCommandHandler<Command>
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {

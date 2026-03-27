@@ -4,11 +4,11 @@ namespace BookHeaven.Domain.Features.BookSeries;
 
 public static class DeleteSeries
 {
-    public sealed record Command(Guid SeriesId) : ICommand;
+    public sealed record Command(Guid SeriesId) : ICustomCommand;
     
     internal class Handler(
         ILogger<Handler> logger,
-        IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command>
+        IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomCommandHandler<Command>
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {

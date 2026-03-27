@@ -2,9 +2,9 @@
 
 public static class SaveKoreaderProgress
 {
-    public sealed record Command(Entities.KoreaderProgress Progress) : ICommand;
+    public sealed record Command(Entities.KoreaderProgress Progress) : ICustomCommand;
     
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomCommandHandler<Command>
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {

@@ -9,9 +9,9 @@ public static class CreateProfile
 {
     public sealed record Response(Guid ProfileId, int TotalProfiles);
     
-    public sealed record Command(string Name) : ICommand<Response>;
+    public sealed record Command(string Name) : ICustomCommand<Response>;
 
-    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command, Response>
+    internal class Handler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomCommandHandler<Command, Response>
     {
 
         public async Task<Result<Response>> Handle(Command request, CancellationToken cancellationToken)

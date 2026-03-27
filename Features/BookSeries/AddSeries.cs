@@ -4,9 +4,9 @@ namespace BookHeaven.Domain.Features.BookSeries;
 
 public static class AddSeries
 {
-    public sealed record Command(Series Series) : ICommand;
+    public sealed record Command(Series Series) : ICustomCommand;
 
-    internal class CommandHandler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICommandHandler<Command>
+    internal class CommandHandler(IDbContextFactory<DatabaseContext> dbContextFactory) : ICustomCommandHandler<Command>
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {
